@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <AssemblyName>AlarmByZones</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AlarmByZones</RootNamespace>
+    <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1B5B8ECE-2FF0-4B61-9709-A705C265FDE9}</ProjectGuid>
+    <TargetFrameworkVersion>v4.2</TargetFrameworkVersion>
+    <NetMfTargetsBaseDir Condition="'$(NetMfTargetsBaseDir)'==''">$(MSBuildExtensionsPath32)\Microsoft\.NET Micro Framework\</NetMfTargetsBaseDir>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE, MF_FRAMEWORK_VERSION_V4_2, MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2,MF_FRAMEWORK_VERSION_V4_2</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
+  <ItemGroup>
+    <Compile Include="Alarm\Common.cs" />
+    <Compile Include="Alarm\ConfigDefault.cs" />
+    <Compile Include="Alarm\Definitions.cs" />
+    <Compile Include="Alarm\UserData.cs" />
+    <Compile Include="Alarm\WebServer.cs" />
+    <Compile Include="BanskySPOTMail\Attachment.cs" />
+    <Compile Include="BanskySPOTMail\Base64.cs" />
+    <Compile Include="BanskySPOTMail\MailAddress.cs" />
+    <Compile Include="BanskySPOTMail\MailMessage.cs" />
+    <Compile Include="BanskySPOTMail\SmtpClient.cs" />
+    <Compile Include="BanskySPOTMail\SmtpErrorCode.cs" />
+    <Compile Include="BanskySPOTMail\SmtpException.cs" />
+    <Compile Include="BanskySPOTMail\TransferEncoding.cs" />
+    <Compile Include="Console.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\ClientConnectedEvent.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Collection\NameValueCollection.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Collection\NameValueEnumerator.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Collection\NameValuePair.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Cookie\HttpCookie.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Cookie\HttpCookieCollection.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Cookie\HttpCookieEnumerator.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Enums\HttpStatusCode.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Enums\LogEventType.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Enums\MimeParserState.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Enums\RequestParserState.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Helper\NetworkHelper.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpContext.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpException.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpHeader.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpParameter.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpProcessor.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpRequest.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpResponse.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpServer.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\HttpServerUtility.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\IHttpHandler.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\LogAccess.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\LogAccessEvent.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Mime\MimeContent.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Mime\MimeContentCollection.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Mime\MimeContentEnumerator.cs" />
+    <Compile Include="MFToolkit\MicroHTTP\Mime\MimeParser.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\ByteOrder.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\ByteReader.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\ByteUtil.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\ByteWriter.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\Cryptography\SHA1.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\Cryptography\SHA256.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\Helper\BitHelper.cs" />
+    <Compile Include="MFToolkit\MicroIO\IO\StringBuilder.cs" />
+    <Compile Include="MicroLiquidCrystal\BaseShifterLcdTransferProvider.cs" />
+    <Compile Include="MicroLiquidCrystal\FusionWare.SPOT\DisposableObject.cs" />
+    <Compile Include="MicroLiquidCrystal\ILcdTransferProvider.cs" />
+    <Compile Include="MicroLiquidCrystal\Lcd.cs" />
+    <Compile Include="MicroLiquidCrystal\Shifter74Hc595LcdTransferProvider.cs" />
+    <Compile Include="MicroLiquidCrystal\ShifterPin.cs" />
+    <Compile Include="Pachube\EmbeddableGraphGenerator\EmbeddableHTML.cs" />
+    <Compile Include="Pachube\EmbeddableGraphGenerator\GraphAppearance.cs" />
+    <Compile Include="Pachube\EmbeddableGraphGenerator\GraphFunctionality.cs" />
+    <Compile Include="Pachube\PachubeData.cs" />
+    <Compile Include="Pachube\PachubeLibrary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AlarmByZones.cs" />
+    <Compile Include="FileManagement.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PushingBox\PushingBox.cs" />
+    <Compile Include="SMTPClient.cs" />
+    <Compile Include="System.Diagnostics.Stopwatch.cs" />
+    <Compile Include="WebControlPanel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SPOT.Graphics" />
+    <Reference Include="Microsoft.SPOT.Hardware" />
+    <Reference Include="Microsoft.SPOT.Hardware.SerialPort" />
+    <Reference Include="Microsoft.SPOT.IO" />
+    <Reference Include="Microsoft.SPOT.Native" />
+    <Reference Include="Microsoft.SPOT.Net" />
+    <Reference Include="SecretLabs.NETMF.Hardware" />
+    <Reference Include="SecretLabs.NETMF.Hardware.AnalogInput, Version=4.2.0.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="SecretLabs.NETMF.Hardware.NetduinoPlus" />
+    <Reference Include="System" />
+    <Reference Include="System.IO" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config.ini" />
+    <None Include="Resources\about-mobile.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\about.htm" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

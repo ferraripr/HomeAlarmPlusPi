@@ -1,0 +1,26 @@
+table {
+    color: black;
+    background: #fff;
+    border: 1px solid #b4b4b4;
+    font: bold 17px helvetica;
+    padding: 0;
+    margin-top:10px;
+    width: 100%;
+    -webkit-border-radius: 8px;
+}
+     
+table tr td {
+    color: #666;
+    border-bottom: 1px solid #b4b4b4;
+    border-right: 1px solid #b4b4b4;
+    padding: 10px 10px 10px 10px;
+    background-image: -webkit-linear-gradient(top, #fdfdfd, #eee);
+}
+         
+table tr td:last-child {
+    border-right: none;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}
