@@ -6,7 +6,7 @@ $MOBILE = "0";
 $WUNDERGROUND_KEY_ID = "Your Wunderground Key ID";
 $ZIP_CODE = "Your Zip code";
 
-$current_time = exec("date +'%d %b %Y %T %Z'");
+$current_time = exec("date +'%d %b %Y %r %Z'");
 
 if (isset($_GET['main-page']))
 {
@@ -79,10 +79,11 @@ jQuery(document).ready(function($) {
 <li class="current"><a href="/" title='Home'>HOME</a></li>
 -->
 <li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank" title='Access alarm panel'>Alarm Panel [Netduino Plus]</a></li>
-<li><a href="http://{$_SERVER['SERVER_NAME']}:8080/weather.html" target="_blank" title='weather'>Weather</a></li>
-<li><a href="http://{$_SERVER['SERVER_NAME']}:8080/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
-<li><a href="http://{$_SERVER['SERVER_NAME']}:8080/sysinfo_v2/index.php" target="_blank" title='System Info'>System Info v2</a></li>
-<li><a href="http://{$_SERVER['SERVER_NAME']}:8080/mobile/main.html" target="_blank" title='Mobile'>Mobile version</a></li>
+<li><a href="/weather.html" target="_blank" title='weather'>Weather</a></li>
+<li><a href="/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
+<li><a href="/sysinfo_v2/index.php" target="_blank" title='System Info'>System Info v2</a></li>
+<li><a href="/mobile/main.html" target="_blank" title='Mobile'>Mobile version</a></li>
+
 <li><a href='/about.htm' title='Credits and contributors'>ABOUT</a> </li>
 </ul></div>
         </br>
