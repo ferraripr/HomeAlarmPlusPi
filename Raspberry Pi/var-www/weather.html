@@ -10,10 +10,15 @@
 
 <script>
     $(document).ready(function(){
-    $(".flip").click(function () {
-      $(".panel").toggle("slow");
+    $(".flip1").click(function () {
+      $(".panel1").toggle("slow");
     });
 	});
+    $(document).ready(function(){
+    $(".flip2").click(function () {
+      $(".panel2").toggle("slow");
+    });
+	});	
 </script>
 
 <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->
@@ -83,6 +88,7 @@ jQuery(document).ready(function($) {
   $("#c_current_conditions").append("<br/><center>"+image_current+"<br/><b>" + current_conditions +"</b></center>");
   $("#c_location").append("<b>" + location +"</b>");
   $("#c_temperature").append("<br/><center><b><font size=\"6\">" + temp_f +"</font></b></center>");
+  $("#c_radar").append("<img src=\"http://api.wunderground.com/api/" + Wunderground_Key_ID + "/animatedradar/q/" + ZipCode + ".gif?newmaps=1&timelabel=1&timelabel.y=10&num=5&delay=50\" alt=\"radar\">");
   }
   });
 });
@@ -113,15 +119,25 @@ jQuery(document).ready(function($) {
 				</tr> 
 	   </table>
 	   	   
-	   <p  class="flip">Click to show/hide forecast</p>
-       <div  class="panel">
-	   
+	   <p  class="flip1">Click to show/hide forecast</p>
+       <div  class="panel1">	   
 	   <table class="gridtable" border="1" width="100%">
 			<tr>
 				<td id="c_forecast">Forecast:</td>
 			</tr>
 	   </table>
 	   </div>
+
+	   <p  class="flip2">Click to show/hide radar</p>
+       <div  class="panel2">	   
+	   <table class="gridtable" border="1" width="100%">
+			<tr>
+				<td id="c_radar"></td>
+			</tr>
+	   </table>
+	   </div>
+	   
+	   
 	   <br />
 		
         <a href="/">Back to main page...</a>

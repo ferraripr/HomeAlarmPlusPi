@@ -1,14 +1,19 @@
-div.panel,p.flip
+div.panel1,p.flip1,div.panel2,p.flip2
 {
-width:250px;
+width:450px;
 margin-left: 1px;
 padding:5px;
 text-align:center;
 background:#e5eecc;
 border:solid 1px #c3c3c3;
 }
-div.panel
+div.panel1
 {
-height:230px;
+height:200px;
+display:none;
+}
+div.panel2
+{
+height:320px;
 display:none;
 }
