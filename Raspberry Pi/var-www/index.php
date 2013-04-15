@@ -55,13 +55,17 @@ jQuery(document).ready(function($) {
 <meta charset="UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="03/30/2013"/>
+<meta name="mod-date" content="04/14/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
+   <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
    <meta name="MobileOptimized" content="width" />
    <meta name="HandheldFriendly" content="true" />
+   <meta name="apple-mobile-web-app-title" content="HomeAlarmPlus Pi" />
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <?php endif; ?>
 
 <link rel="stylesheet" type="text/css" href="WebResources/header_style.css"></style>

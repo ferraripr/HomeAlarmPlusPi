@@ -8,7 +8,30 @@ table {
     width: 100%;
     -webkit-border-radius: 8px;
 }
-     
+table th {
+    color: white;
+    background: #fff;
+    border: 1px solid #b4b4b4;
+    text-align:center;
+    font:  17px helvetica;
+    -webkit-border-radius: 8px;
+    background: rgb(167, 199, 220);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(167, 199, 220, 1) 0%, rgba(133, 178, 211, 1) 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(167, 199, 220, 1)), color-stop(100%, rgba(133, 178, 211, 1)));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(167, 199, 220, 1) 0%, rgba(133, 178, 211, 1) 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(167, 199, 220, 1) 0%, rgba(133, 178, 211, 1) 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(167, 199, 220, 1) 0%, rgba(133, 178, 211, 1) 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, rgba(167, 199, 220, 1) 0%, rgba(133, 178, 211, 1) 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a7c7dc', endColorstr='#85b2d3', GradientType=0);
+    /* IE6-9 */
+}
 table tr td {
     color: #666;
     border-bottom: 1px solid #b4b4b4;
