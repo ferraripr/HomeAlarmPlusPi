@@ -3,7 +3,7 @@ HomeAlarmPlus Pi
 
 Introduction
 ------------
-An open source alarm monitoring system using Raspberry Pi, Netduino Plus 1 and ATTiny85.  This is a base class library.
+An open source alarm monitoring system using Raspberry Pi, Netduino Plus 1 and ATtiny85.  This is a base class library.
 
 Warning
 ------------
@@ -15,4 +15,5 @@ http://homealarmpluspi.blogspot.com/2013/04/blog-post.html
 
 Related Works
 ------------
+Original work started with just Netduino Plus 1.  Then ATtiny85 and Raspberry PI.  The following link shows the original implementation.
 http://netduinoexperience.blogspot.com/
