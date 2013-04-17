@@ -12,3 +12,7 @@ This code contains information related to typical home alarm systems.  Please, b
 Blog with latest information
 ------------
 http://homealarmpluspi.blogspot.com/2013/04/blog-post.html
+
+Related Works
+------------
+http://netduinoexperience.blogspot.com/
