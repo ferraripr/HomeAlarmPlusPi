@@ -52,14 +52,13 @@ jQuery(document).ready(function($) {
 </script>
 
 <head>
-<meta charset="UTF-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
+<meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="04/14/2013"/>
+<meta name="mod-date" content="04/19/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
-   <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
    <meta name="MobileOptimized" content="width" />
    <meta name="HandheldFriendly" content="true" />
@@ -97,8 +96,7 @@ jQuery(document).ready(function($) {
 				   <td id="c_temperature"><center>Temperature</center></td>
 				</tr> 
 	   </table>
-</br>
-<br/>
+<br/><br/><br/><br/><br/><br/><br/>
 <div style="border:1px solid #CCCCCC;">
 <p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>
 </div>
