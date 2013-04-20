@@ -173,6 +173,11 @@
  *                                                                  CSS linked from webserver instead on being loaded on every process request.
  *                                                                  Code cleanup.
  *                                                                  Using Raspberry Pi to set the Netduino's Local Time.
+ *                                                                  
+ *   04-06-2013              27.1.0.0            G. García          Code clean up.
+ *                                                                  Github release.
+ *
+ *   04-19-2013              27.2.0.0            G. García          Project build event fix.
  */
 
 using System;
