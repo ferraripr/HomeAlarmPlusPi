@@ -55,7 +55,7 @@ jQuery(document).ready(function($) {
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="04/19/2013"/>
+<meta name="mod-date" content="04/20/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -81,13 +81,13 @@ jQuery(document).ready(function($) {
 <!--
 <li class="current"><a href="/" title='Home'>HOME</a></li>
 -->
-<li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank" title='Access alarm panel'>Alarm Panel [Netduino Plus]</a></li>
-<li><a href="/weather.html" target="_blank" title='weather'>Weather</a></li>
-<li><a href="/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
-<li><a href="/sysinfo_v2/index.php" target="_blank" title='System Info'>System Info v2</a></li>
-<li><a href="/mobile/main.html" target="_blank" title='Mobile'>Mobile version</a></li>
+<li class="toplinks"><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank" title='Access alarm panel'>Alarm Panel [Netduino Plus]</a></li>
+<li class="toplinks"><a href="/weather.html" target="_blank" title='weather'>Weather</a></li>
+<li class="toplinks"><a href="/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
+<li class="toplinks"><a href="/sysinfo_v2/index.php" target="_blank" title='System Info'>System Info v2</a></li>
+<li class="toplinks"><a href="/mobile/main.html" target="_blank" title='Mobile'>Mobile version</a></li>
 
-<li><a href='/about.htm' title='Credits and contributors'>ABOUT</a> </li>
+<li class="toplinks"><a href='/about.htm' title='Credits and contributors'>ABOUT</a> </li>
 </ul></div>
         </br>
 		<table class="gridtable" border="1" width="20%">

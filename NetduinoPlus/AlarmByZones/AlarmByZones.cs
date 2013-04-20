@@ -178,6 +178,8 @@
  *                                                                  Github release.
  *
  *   04-19-2013              27.2.0.0            G. García          Project build event fix.
+ *   04-20-2013                                                     Added CSS style for <LI> headers.
+ *                                                                  Modification on DateTime format.
  */
 
 using System;
