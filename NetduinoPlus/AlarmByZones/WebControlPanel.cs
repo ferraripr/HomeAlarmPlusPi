@@ -3,8 +3,8 @@ using System.Threading;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
 using SecretLabs.NETMF.Hardware;
-using SecretLabs.NETMF.Hardware.NetduinoPlus;
 using System.Text;
+
 
 namespace AlarmByZones
 {
@@ -106,7 +106,7 @@ namespace AlarmByZones
                         context.Response.WriteLine("</div>");
                         context.Response.WriteLine("<div data-role=\"content\">");
                         context.Response.WriteLine("<div class=\"content-primary\">");
-                        context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                        context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                         context.Response.WriteLine("Alarm Status Log: " + AlarmStatus);
                         context.Response.WriteLine("</table>");
                         context.Response.WriteLine("</div>");
@@ -124,7 +124,7 @@ namespace AlarmByZones
 
                         context.Response.WriteLine("</head><body>");
                         context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
-                        context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                        context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                         context.Response.WriteLine(menu_Header);
                         context.Response.WriteLine("<br>");
                         context.Response.WriteLine("Alarm Status Log: " + AlarmStatus);
@@ -168,7 +168,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");    
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
                     {
                         context.Response.WriteLine("SD Card detected and found the following files:<br><br>");
@@ -208,7 +208,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
                     context.Response.WriteLine(menu_Header);
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
                     {
                         AlarmByZones.SdCardEventLogger.openFileContent(fileLink, alOpen);
@@ -246,7 +246,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
                     context.Response.WriteLine(menu_Header);
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     foreach (string content in alPachube)
                     {
                         context.Response.WriteLine(content);
@@ -275,7 +275,7 @@ namespace AlarmByZones
                         context.Response.WriteLine("</head><body>");
                         context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
                         context.Response.WriteLine(menu_Header);
-                        context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                        context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                         if (LastFile != Alarm.User_Definitions.Constants.ALARM_CONFIG_FILE_PATH &&
                             LastFile != @"\SD\Logs" && LastFile != @"\SD\Exception" )
                         {
@@ -307,7 +307,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
                     context.Response.WriteLine(menu_Header);
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
                     {
                         string rawHref = AlarmByZones.SdCardEventLogger.FileList[AlarmByZones.SdCardEventLogger.FileList.Count - 1].ToString();
@@ -360,7 +360,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1 - Diagnostics</h1><br>");
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     context.Response.WriteLine("<p><font size=\"5\" face=\"verdana\" color=\"green\">Alarm System is up and running!</font></p><br>");
                     context.Response.WriteLine("<b>Power Cycle</b>");
                     context.Response.WriteLine("<div><lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li></lu></div><br>");
@@ -400,7 +400,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("</div>");
                     context.Response.WriteLine("<div data-role=\"content\">");
                     context.Response.WriteLine("<div class=\"content-primary\">");
-                    context.Response.WriteLine("<p>Current Time: " + DateTime.Now.ToString("dd MMM yyyy HH:mm:ss tt") + "</p></br>");
+                    context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     context.Response.WriteLine("<p><font size=\"5\" face=\"verdana\" color=\"green\">Alarm System is up and running!</font></p>");
                     context.Response.WriteLine("<b>Power Cycle</b>");
                     context.Response.WriteLine("<div><lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li></lu></div><br>");

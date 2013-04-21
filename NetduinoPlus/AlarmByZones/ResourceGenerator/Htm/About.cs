@@ -229,14 +229,14 @@ namespace ResourceGenerator.Htm
                 "        </div>" +
                 "	</body>\n" +
                 "</html>\n";
-            Console.WriteLine("Creating about.htm");
+            Console.WriteLine("Creating about-mobile.html");
             FileStream file = new FileStream(mobileFileName, FileMode.Create, FileAccess.ReadWrite);
             StreamWriter sw = new StreamWriter(file);
             sw.WriteLine(aboutMobileWebpage);
             sw.Flush();
             sw.Close();
 
-            Console.WriteLine("Copying new about.htm file to AlarmByZones Resources directory.");
+            Console.WriteLine("Copying new about-mobile.htm file to AlarmByZones Resources directory.");
             //Programmatically copy new about.htm into AlarmByZones Resources directory
             File.Copy(mobileFileName, destinationPathMobile, true);
 

@@ -65,7 +65,7 @@ namespace PushingBox
         /// <summary>
         /// Establishes connection to PushingBox's host.
         /// </summary>
-        /// <param name="host">port number</param>
+        /// <param name="host">server name or IP address</param>
         /// <param name="timeout">timeout</param>
         /// <returns></returns>
         static Socket Connect(string host, int timeout)
@@ -97,12 +97,9 @@ namespace PushingBox
             var headers =
                 "GET /pushingbox?devid=" + devId + " HTTP/1.1" + CRLF +
                 "Host: " + serverName + CRLF +
-                //"X-PachubeApiKey: " + apiKey + CRLF +
-                //"Content-Type: text/csv" + CRLF +
                 "User-Agent: NetduinoPlus" + CRLF +
                 "Content-Length: " + contentBuffer.Length + CRLF + CRLF;
             byte[] headersBuffer = Encoding.UTF8.GetBytes(headers);
-         //   s.Send(requestLineBuffer);
             s.Send(headersBuffer);
             s.Send(contentBuffer);
         }
