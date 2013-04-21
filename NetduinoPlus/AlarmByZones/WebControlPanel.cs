@@ -10,11 +10,17 @@ namespace AlarmByZones
 {
     public class WebControlPanel : MFToolkit.Net.Web.IHttpHandler
     {
+
         public void ProcessRequest(MFToolkit.Net.Web.HttpContext context)
         {
             string rawURL_string = string.Empty;
             string menu_Pachube = string.Empty;
             string menu_SuperUser = string.Empty;
+
+            DateTime endTime = DateTime.Now;
+            TimeSpan span = endTime.Subtract(AlarmByZones.dLastResetCycle);
+            string strUptime = span.Duration().Days > 0 ? span.Days + "days, " : string.Empty;
+            strUptime = strUptime + span.Hours + ":" + span.Minutes + ":" + span.Seconds + " (hh:mm:ss)</li></lu><br>";
 
             if (Alarm.ConfigDefault.Data.USE_PACHUBE)
             {
@@ -87,7 +93,8 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Home</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"03/31/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />");
@@ -160,7 +167,8 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - SD Card History Log</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"03/31/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />");
@@ -204,6 +212,9 @@ namespace AlarmByZones
                     System.Collections.ArrayList alOpen = new System.Collections.ArrayList();
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Open SD Card File</title>");
+                    context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
@@ -241,6 +252,8 @@ namespace AlarmByZones
                     Pachube.EmbeddableGraphGenerator.EmbeddableHTML.GenerateHTML(alPachube);
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Pachube Graphics</title>");
+                    context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");					
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/table_style.css\"></style>");
                     context.Response.WriteLine("</head><body>");
@@ -271,6 +284,9 @@ namespace AlarmByZones
                         string LastFile = rawHref == Alarm.User_Definitions.Constants.ALARM_CONFIG_FILE_PATH  ? rawHref : parseHref[2];
                         context.Response.ContentType = "text/html";
                         context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card confirm</title>");
+                        context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
+                        context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                        context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                         context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                         context.Response.WriteLine("</head><body>");
                         context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
@@ -303,6 +319,9 @@ namespace AlarmByZones
                 case "/delete-last":
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card File</title>");
+                    context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
@@ -341,7 +360,7 @@ namespace AlarmByZones
                     break;
                 case "/diag":
                 case "/diagnostics":
-                    //This is very useful when used with Android App "Overlook Wiz"
+                    //This option is very useful when used with Android App "Overlook Wiz"
                     //---------------------------------------------------------------
                     //Overlook Wiz settings:
                     //Host name or IP address: your host settings.
@@ -352,7 +371,8 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Diagnostics</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"03/31/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />");
@@ -363,7 +383,8 @@ namespace AlarmByZones
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     context.Response.WriteLine("<p><font size=\"5\" face=\"verdana\" color=\"green\">Alarm System is up and running!</font></p><br>");
                     context.Response.WriteLine("<b>Power Cycle</b>");
-                    context.Response.WriteLine("<div><lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li></lu></div><br>");
+                    context.Response.WriteLine("<lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li>");
+                    context.Response.WriteLine("<li>Uptime: " + strUptime);
                     context.Response.WriteLine("<b>Memory</b>");
                     context.Response.WriteLine("<lu>");
                     context.Response.WriteLine("<li>Available Memory: " + Debug.GC(true) + "</li>");
@@ -403,7 +424,8 @@ namespace AlarmByZones
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     context.Response.WriteLine("<p><font size=\"5\" face=\"verdana\" color=\"green\">Alarm System is up and running!</font></p>");
                     context.Response.WriteLine("<b>Power Cycle</b>");
-                    context.Response.WriteLine("<div><lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li></lu></div><br>");
+                    context.Response.WriteLine("<lu><li>Last Time since reset: " + AlarmByZones.LastResetCycle + "</li>");
+                    context.Response.WriteLine("<li>Uptime: " + strUptime);
                     context.Response.WriteLine("<b>Memory</b>");
                     context.Response.WriteLine("<lu>");
                     context.Response.WriteLine("<li>Available Memory: " + Debug.GC(true) + "</li>");

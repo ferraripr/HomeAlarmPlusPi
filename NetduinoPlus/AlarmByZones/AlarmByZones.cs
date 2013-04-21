@@ -183,6 +183,8 @@
  *                                                                  
  *   04-21-2013              27.3.0.0            G. García          Another modification on DateTime format.
  *                                                                  More code cleanup.
+ *                                                                  
+ *   04-21-2013              27.4.0.0            G. García          Added total uptime on dignostics web server option.
  */
 
 using System;
@@ -301,6 +303,11 @@ namespace AlarmByZones
         public static string LastResetCycle = string.Empty;
 
         /// <summary>
+        /// Last time since power cycle or reset
+        /// </summary>
+        public static DateTime dLastResetCycle;
+
+        /// <summary>
         /// Turn on ATtinyX5 chip
         /// </summary>
         static OutputPort ATTINYx5 = new OutputPort(SecretLabs.NETMF.Hardware.NetduinoPlus.Pins.GPIO_PIN_D8, false);
@@ -405,7 +412,8 @@ namespace AlarmByZones
             //Rpi time notification
             PushingBox.Notification.Connect("vPUSHINGBOX");
             
-            LastResetCycle = DateTime.Now.ToString("ddd, d MMM yyyy HH:mm:ss \r\n");
+            LastResetCycle = DateTime.Now.ToString("ddd, d MMM yyyy hh:mm:ss tt\r\n");
+            dLastResetCycle = DateTime.Now;
 
             lcd.SetCursorPosition(column: 0, row: 1);
             string status = Extension.status ? "RPi Time-srvr OK    " : "Restart needed   ";
