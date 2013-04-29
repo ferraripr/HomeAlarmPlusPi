@@ -62,7 +62,7 @@ namespace ResourceGenerator.Htm
                 "	<head>\n" +
                 "	    <title>Control Panel - About</title>\n" +
                 "       <meta name=\"author\"   content=\"Gilberto García\"/>\n" +
-                "       <meta name=\"mod-date\" content=\"03/09/2013\"/>\n" +
+                "       <meta name=\"mod-date\" content=\"04/28/2013\"/>\n" +
                 "       <link rel=\"stylesheet\" type=\"text/css\" href=\"http://yourRPiServer/WebResources/header_style.css\"></style>\n" +
                 "       <link rel=\"stylesheet\" type=\"text/css\" href=\"http://yourRPiServer/WebResources/table_style.css\"></style>\n" +
                 "	</head>\n" +
@@ -76,58 +76,25 @@ namespace ResourceGenerator.Htm
                 "        Hardware: <a href=\"http://netduino.com/netduinoplus/specs.htm\" target=\"_blank\">Netduino Plus</a>\n" +
                 "        <br>\n" +
                 "        <br>\n" +
-                "            <ul>\n" +
-                "                <li>\n" +
-                "                    AlarmByZones original implementation by: Gilberto Garc&#237;a (<i><a href=\"mailto:ferraripr@gmail.com\">ferraripr@gmail.com</a></i>).\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    SMTP based on BanskySPOTMail by: <a href=\"http://bansky.net/blog/2008/08/sending-e-mails-from-net-micro-framework/\" target=\"_blank\">Pavel B&#225;nsk&#253;</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    Web Server based on MFToolkit library by: <a href=\"http://mftoolkit.codeplex.com/\" target=\"_blank\">Michael Schwarz</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    Pachube Embeddable Graph Generator (Beta) by: <a href=\"http://pachube.github.com/pachube_graph_library/\" target=\"_blank\">Pachube</a>, adapted by Gilberto Garc&#237;a.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    NTP Server and Extensions class based on a post/implementation by: <a href=\"http://forums.netduino.com/index.php?/topic/475-still-learning-internet-way-to-grab-date-and-time-on-startup/\" target=\"_blank\">Valkyrie-MT</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "                <li>\n" +
-                "                    StopWatch class based on a post/implementation by: <a href=\"http://forums.netduino.com/index.php?/topic/97-systemdiagnosticsstopwatch-class/\" target=\"_blank\">Chris Walker</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "                <li>\n" +
-                "                    LCD display using <a href=\"http://microliquidcrystal.codeplex.com/\" target=\"_blank\">uLiquidCrystal</a> library.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "                <li>\n" +
-                "                    Notification service using <a href=\"http://www.pushingbox.com/index.php\" target=\"_blank\">PushingBox</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "            </ul>\n" +
-                "        <br>\n" +
+				"        <div>\n" +
+				"        <ul>\n" +
+				"        <li class=\"toplinks\"><a href='http://yourRPiServer/references.htm' target='_blank' title='Credits and contributors'>References</a></li>\n" +
+				"        </ul>\n" +
+				"        </div><br>\n" +
+				"        <br>\n" +
                 "        <a href=\"/\">Back to main page...</a>\n" +
-                "        <br>\n" +
-                "        <div style=\"border:1px solid #CCCCCC;\">" +
-                "        <p><span class=\"note\">Copyright &#169; "+DateTime.Now.ToString("yyyy")+" Gilberto Garc&#237;a</span></p>" +
-                "        </div>" +
-                "	</body>\n" +
-                "</html>\n";
-            Console.WriteLine("Creating about.htm");
-            FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
-            StreamWriter sw = new StreamWriter(file);
-            sw.WriteLine(aboutWebpage);
-            sw.Flush();
-            sw.Close();
+				"        <br>\n" +
+				"        <div style=\"border:1px solid #CCCCCC;\">" +
+				"        <p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>" +
+				"        </div>" +
+				"	</body>\n" +
+				"</html>\n";
+			Console.WriteLine("Creating about.htm");
+			FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
+			StreamWriter sw = new StreamWriter(file);
+			sw.WriteLine(aboutWebpage);
+			sw.Flush();
+			sw.Close();
 
             Console.WriteLine("Copying new about.htm file to AlarmByZones Resources directory.");
             //Programmatically copy new about.htm into AlarmByZones Resources directory
@@ -184,39 +151,7 @@ namespace ResourceGenerator.Htm
                 "                <p><b>Build date:</b> " + buildDate + "</p>\n" +
                 "                <p><b>Hardware:</b> <a href=\"http://netduino.com/netduinoplus/specs.htm\" target=\"_blank\">Netduino Plus</a></p>\n" +
                 "            <ul>\n" +
-                "                <li>\n" +
-                "                    AlarmByZones original implementation by: Gilberto Garc&#237;a (<i><a href=\"mailto:ferraripr@gmail.com\">ferraripr@gmail.com</a></i>).\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    SMTP based on BanskySPOTMail by: <a href=\"http://bansky.net/blog/2008/08/sending-e-mails-from-net-micro-framework/\" target=\"_blank\">Pavel B&#225;nsk&#253;</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    Web Server based on MFToolkit library by: <a href=\"http://mftoolkit.codeplex.com/\" target=\"_blank\">Michael Schwarz</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    Pachube Embeddable Graph Generator (Beta) by: <a href=\"http://pachube.github.com/pachube_graph_library/\" target=\"_blank\">Pachube</a>, adapted by Gilberto Garc&#237;a.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    NTP Server and Extensions class based on a post/implementation by: <a href=\"http://forums.netduino.com/index.php?/topic/475-still-learning-internet-way-to-grab-date-and-time-on-startup/\" target=\"_blank\">Valkyrie-MT</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "                <li>\n" +
-                "                    StopWatch class based on a post/implementation by: <a href=\"http://forums.netduino.com/index.php?/topic/97-systemdiagnosticsstopwatch-class/\" target=\"_blank\">Chris Walker</a>.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-
-                "                <li>\n" +
-                "                    LCD display using <a href=\"http://microliquidcrystal.codeplex.com/\" target=\"_blank\">uLiquidCrystal</a> library.\n" +
-                "                </li>\n" +
-                "                <br>\n" +
-                "                <li>\n" +
-                "                    Notification service using <a href=\"http://www.pushingbox.com/index.php\" target=\"_blank\">PushingBox</a>.\n" +
-                "                </li>\n" +
+                "                <li class=\"toplinks\"><a href='http://yourRPiServer/mobile/references-mobile.html' title='Credits and contributors'>References</a></li>\n" +
                 "                <br>\n" +
                 "            </ul>\n" +
                 "        </div>" +

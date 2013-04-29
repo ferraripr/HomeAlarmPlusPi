@@ -185,6 +185,8 @@
  *                                                                  More code cleanup.
  *                                                                  
  *   04-21-2013              27.4.0.0            G. García          Added total uptime on dignostics web server option.
+ *   
+ *   04-28-2013              27.5.0.0            G. García          Modified about and about-mobile to save memory.
  */
 
 using System;

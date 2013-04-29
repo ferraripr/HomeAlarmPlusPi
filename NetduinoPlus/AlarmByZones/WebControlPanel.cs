@@ -19,7 +19,7 @@ namespace AlarmByZones
 
             DateTime endTime = DateTime.Now;
             TimeSpan span = endTime.Subtract(AlarmByZones.dLastResetCycle);
-            string strUptime = span.Duration().Days > 0 ? span.Days + "days, " : string.Empty;
+            string strUptime = span.Duration().Days > 0 ? span.Days + " day(s), " : string.Empty;
             strUptime = strUptime + span.Hours + ":" + span.Minutes + ":" + span.Seconds + " (hh:mm:ss)</li></lu><br>";
 
             if (Alarm.ConfigDefault.Data.USE_PACHUBE)
