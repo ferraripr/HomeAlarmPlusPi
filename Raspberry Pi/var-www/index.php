@@ -40,9 +40,12 @@ jQuery(document).ready(function($) {
   var current_conditions = parsed_json['current_observation']['weather']  ;
   var location = parsed_json['current_observation']['display_location']['full'];
   var icon_url_current = parsed_json['current_observation']['icon_url'];
-
+  var forecast = parsed_json['forecast']['simpleforecast']['forecastday'];
   var image_current = "<img src=\""+ icon_url_current +"\" width=\"40\" height=\"40\" >";
     
+  //interested in next day forecast.
+  var index = 1;
+  $("#c_forecast").append("<b>" + forecast[index]['date']['weekday'] + " " + forecast[index]['conditions'] + ". High of " + forecast[index]['high']['fahrenheit'] + '&#8457;' + " and Low of " + forecast[index]['low']['fahrenheit'] + '&#8457;' + ".</b>");	
   $("#c_current_conditions").append("<br/><center>"+image_current+"<br/><b>" + current_conditions +"</b></center>");
   $("#c_location").append("<b>" + location +"</b>");
   $("#c_temperature").append("<br/><center><b><font size=\"6\">" + temp_f +"</font></b></center>");
@@ -55,7 +58,7 @@ jQuery(document).ready(function($) {
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="04/20/2013"/>
+<meta name="mod-date" content="05/04/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -67,20 +70,27 @@ jQuery(document).ready(function($) {
    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <?php endif; ?>
 
-<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"></style>
+<!--jQuery, linked from a CDN-->
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<!--jQueryUI Theme -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" />
+
+<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"></style>	   
 <link rel="stylesheet" type="text/css" href="WebResources/table_style.css"></style>
 <title>RASPBERRY PI Control Panel - Home</title>
 </head>
 <body>
-		<h1>HomeAlarmPlus Pi</h1>	
+        <div class="ui-widget">
+		<div class="ui-widget-header ui-corner-top">
+		<h2>HomeAlarmPlus Pi</h2></div>
+        <div class="ui-widget-content ui-corner-bottom">		
         <p>System Time: <b>{$current_time}</b></p>
 		<p id="c_location">Location: </p>
+		<p id="c_forecast">Forecast: </p>
 		<p>DEBUG: Value of Mobile is :{$MOBILE}</p>
 		<br/>
 <div><ul>
-<!--
-<li class="current"><a href="/" title='Home'>HOME</a></li>
--->
 <li class="toplinks"><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank" title='Access alarm panel'>Alarm Panel [Netduino Plus]</a></li>
 <li class="toplinks"><a href="/weather.html" target="_blank" title='weather'>Weather</a></li>
 <li class="toplinks"><a href="/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
@@ -99,6 +109,8 @@ jQuery(document).ready(function($) {
 <br/><br/><br/><br/><br/><br/><br/>
 <div style="border:1px solid #CCCCCC;">
 <p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>
+</div>
+</div>
 </div>
 </body>
 </html>
