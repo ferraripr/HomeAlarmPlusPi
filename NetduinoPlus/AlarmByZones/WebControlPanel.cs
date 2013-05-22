@@ -43,6 +43,11 @@ namespace AlarmByZones
                 "<li class=\"toplinks\"><a href='/about' title='Credits and contributors'>ABOUT</a></li>\n" +
                 "</ul>\n" +
                 "</div>\n";
+
+            string jquery_ui_script = "<script src=\"http://code.jquery.com/jquery-1.9.1.js\"></script>" +
+                "<script src=\"http://code.jquery.com/ui/1.10.2/jquery-ui.js\"></script>" +
+                "<link rel=\"stylesheet\" href=\"http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css\" />";
+
             string fileLink = string.Empty;
             try
             {
@@ -93,7 +98,7 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Home</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                     context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
@@ -101,11 +106,11 @@ namespace AlarmByZones
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />");
                     if (context.Request.RawUrl == "/mobile")
                     {
-                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/jquery_table_style.css\"></style>");
+                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/jquery_table_style.css\"></style>");
                         context.Response.WriteLine("<link rel=\"stylesheet\" href=\"http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css\" />");
                         context.Response.WriteLine("<script src=\"http://code.jquery.com/jquery-1.7.2.min.js\"></script>");
                         context.Response.WriteLine("<script src=\"http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js\"></script>");
-                        context.Response.WriteLine("<script src=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/jquery_animate_collapse.js\"></script>");
+                        context.Response.WriteLine("<script src=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/jquery_animate_collapse.js\"></script>");
                         context.Response.WriteLine("</head><body>");
                         context.Response.WriteLine("<div data-role=\"page\" id=\"mobile-page\" data-add-back-btn=\"true\" data-theme=\"b\" data-content-theme=\"b\">");
                         context.Response.WriteLine("<div data-theme=\"b\" data-role=\"header\" >");
@@ -126,11 +131,14 @@ namespace AlarmByZones
                     }
                     else
                     {
-                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\""+ Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
-                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/table_style.css\"></style>");
-
+                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\""+ Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/table_style.css\"></style>");
+                        context.Response.WriteLine(jquery_ui_script);
                         context.Response.WriteLine("</head><body>");
-                        context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+                        context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                        context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                        context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                        context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                         context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                         context.Response.WriteLine(menu_Header);
                         context.Response.WriteLine("<br>");
@@ -138,7 +146,7 @@ namespace AlarmByZones
                         context.Response.WriteLine("</table>");
                         context.Response.WriteLine("<br><br>");
                         context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
-                        context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+                        context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p></div></div>");
                     }
                     context.Response.WriteLine("</div></body></html>");
                     //clear variables
@@ -167,15 +175,20 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - SD Card History Log</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                     context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />");
-                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");    
+                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("</head><body>");
-                    context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+
+                    context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                    context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                    context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                    context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
                     {
@@ -205,7 +218,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<a href=\"/\">Back to main page...</a>");
                     context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
                     context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
-                    context.Response.WriteLine("</div></body></html>");
+                    context.Response.WriteLine("</div></div></div></body></html>");
                     rawURL_string = null;
                     break;
                 case "/open":
@@ -213,11 +226,15 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Open SD Card File</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                     context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
-                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("</head><body>");
-                    context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+                    context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                    context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                    context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                    context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                     context.Response.WriteLine(menu_Header);
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
@@ -240,7 +257,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<a href=\"/\">Back to main page...</a>");
                     context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
                     context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
-                    context.Response.WriteLine("</div></body></html>");
+                    context.Response.WriteLine("</div></div></div></body></html>");
                     //clear variables
                     alOpen.Clear();
                     alOpen = null;
@@ -256,8 +273,12 @@ namespace AlarmByZones
                     context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");					
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
                     context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/table_style.css\"></style>");
+                    context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("</head><body>");
+                    context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                    context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
                     context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+                    context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                     context.Response.WriteLine(menu_Header);
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     foreach (string content in alPachube)
@@ -285,11 +306,15 @@ namespace AlarmByZones
                         context.Response.ContentType = "text/html";
                         context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card confirm</title>");
                         context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                        context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                        context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                         context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
-                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
+                        context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                        context.Response.WriteLine(jquery_ui_script);
                         context.Response.WriteLine("</head><body>");
-                        context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+                        context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                        context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                        context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                        context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                         context.Response.WriteLine(menu_Header);
                         context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                         if (LastFile != Alarm.User_Definitions.Constants.ALARM_CONFIG_FILE_PATH &&
@@ -311,7 +336,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<a href=\"/\">Back to main page...</a>");
                     context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
                     context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
-                    context.Response.WriteLine("</div></body></html>");
+                    context.Response.WriteLine("</div></div></div></body></html>");
                     menu_Header = null;
                     rawURL_string = null;
                     break;
@@ -320,11 +345,15 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card File</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                     context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
-                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("</head><body>");
-                    context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1</h1></br>");
+                    context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                    context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                    context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                    context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                     context.Response.WriteLine(menu_Header);
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     if (AlarmByZones.SdCardEventLogger.IsSDCardAvailable())
@@ -354,7 +383,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<a href=\"/\">Back to main page...</a>");
                     context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
                     context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
-                    context.Response.WriteLine("</div></body></html>");
+                    context.Response.WriteLine("</div></div></div></body></html>");
                     menu_Header = null;
                     rawURL_string = null;
                     break;
@@ -371,15 +400,19 @@ namespace AlarmByZones
                     context.Response.ContentType = "text/html";
                     context.Response.WriteLine("<html><head><title>Control Panel - Diagnostics</title>");
                     context.Response.WriteLine("<meta name=\"author\"   content=\"Gilberto García\"/>");
-                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"04/21/2013\"/>");
+                    context.Response.WriteLine("<meta name=\"mod-date\" content=\"05/05/2013\"/>");
                     context.Response.WriteLine("<meta name=\"application-name\" content=\"HomeAlarm Plus\"/>");
                     context.Response.WriteLine("<meta charset=\"utf-8\" />");
                     context.Response.WriteLine("<meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />");
                     context.Response.WriteLine("<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />");
-                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "/WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css\"></style>");
+                    context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("</head><body>");
-                    context.Response.WriteLine("<h1>Alarm Activity - Monitor System #1 - Diagnostics</h1><br>");
+                    context.Response.WriteLine("<div class=\"ui-widget\">\n");
+                    context.Response.WriteLine("<div class=\"ui-widget-header ui-corner-top\">\n");
+                    context.Response.WriteLine("<h2>Alarm Activity - Monitor System #1</h2></div>");
+                    context.Response.WriteLine("<div class=\"ui-widget-content ui-corner-bottom\">");
                     context.Response.WriteLine("<p>Current Time: <b>" + DateTime.Now.ToString("dd MMM yyyy hh:mm:ss tt") + "</b></p></br>");
                     context.Response.WriteLine("<p><font size=\"5\" face=\"verdana\" color=\"green\">Alarm System is up and running!</font></p><br>");
                     context.Response.WriteLine("<b>Power Cycle</b>");
@@ -397,7 +430,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<a href=\"/\">Back to main page...</a>");
                     context.Response.WriteLine("<div style=\"border:1px solid #CCCCCC;\">");
                     context.Response.WriteLine("<p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
-                    context.Response.WriteLine("</div></body></html>");
+                    context.Response.WriteLine("</div></div></div></body></html>");
                     rawURL_string = null;
                     break;
                 case "/diag-mobile":
@@ -449,6 +482,7 @@ namespace AlarmByZones
                     break;
             }
         }
+
 
     }
 }

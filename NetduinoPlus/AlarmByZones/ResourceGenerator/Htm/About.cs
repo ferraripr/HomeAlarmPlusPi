@@ -9,73 +9,80 @@
 
 namespace ResourceGenerator.Htm
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Linq;
+	using System.Text;
+	using System.Text.RegularExpressions;
 
-    /// <summary>
-    /// About.htm HTML file generator
-    /// </summary>
-    public class About
-    {
+	/// <summary>
+	/// About.htm HTML file generator
+	/// </summary>
+	public class About
+	{
 
-        /// <summary>
-        /// AlarmByZones AssemblyInfo.cs file path
-        /// </summary>
-        private string assemblyInfoPath = @"..\..\..\Properties\AssemblyInfo.cs";        
-        
-        /// <summary>
-        /// Source file name
-        /// </summary>
-        private static string fileName = "about.htm";
-        private static string mobileFileName = "about-mobile.html";
-        
-        /// <summary>
-        /// Destination path
-        /// </summary>
-        private string destinationPath = @"..\..\..\Resources\" + fileName;
-        private string destinationPathMobile = @"..\..\..\Resources\" + mobileFileName;
+		/// <summary>
+		/// AlarmByZones AssemblyInfo.cs file path
+		/// </summary>
+		private string assemblyInfoPath = @"..\..\..\Properties\AssemblyInfo.cs";        
+		
+		/// <summary>
+		/// Source file name
+		/// </summary>
+		private static string fileName = "about.htm";
+		private static string mobileFileName = "about-mobile.html";
+		
+		/// <summary>
+		/// Destination path
+		/// </summary>
+		private string destinationPath = @"..\..\..\Resources\" + fileName;
+		private string destinationPathMobile = @"..\..\..\Resources\" + mobileFileName;
 
-        public void CreateAboutHtml()
-        {
-            string pattern = @"AssemblyFileVersion\(""(?<Version>.*?"")";
-            string versionNumber = string.Empty;
-            string buildDate = DateTime.Now.ToLongDateString();
+		public void CreateAboutHtml()
+		{
+			string pattern = @"AssemblyFileVersion\(""(?<Version>.*?"")";
+			string versionNumber = string.Empty;
+			string buildDate = DateTime.Now.ToLongDateString();
 
-            if (File.Exists(assemblyInfoPath))
-            {
-                StreamReader srFromLocalFile = new StreamReader(assemblyInfoPath);
-                string OnMemory = srFromLocalFile.ReadToEnd();
+			if (File.Exists(assemblyInfoPath))
+			{
+				StreamReader srFromLocalFile = new StreamReader(assemblyInfoPath);
+				string OnMemory = srFromLocalFile.ReadToEnd();
 
-                if (Regex.Match(OnMemory, pattern).Success)
-                {
-                    versionNumber = Regex.Match(OnMemory, pattern).Groups["Version"].ToString().Trim('"');
-                }
-            }
+				if (Regex.Match(OnMemory, pattern).Success)
+				{
+					versionNumber = Regex.Match(OnMemory, pattern).Groups["Version"].ToString().Trim('"');
+				}
+			}
 
-            string aboutWebpage = "" +
-                "<!DOCTYPE HTML>\n" +
-                "<html>\n" +
-                "	<head>\n" +
-                "	    <title>Control Panel - About</title>\n" +
-                "       <meta name=\"author\"   content=\"Gilberto García\"/>\n" +
-                "       <meta name=\"mod-date\" content=\"04/28/2013\"/>\n" +
-                "       <link rel=\"stylesheet\" type=\"text/css\" href=\"http://yourRPiServer/WebResources/header_style.css\"></style>\n" +
+			string aboutWebpage = "" +
+				"<!DOCTYPE HTML>\n" +
+				"<html>\n" +
+				"	<head>\n" +
+				"	    <title>Control Panel - About</title>\n" +
+				"       <meta name=\"author\"   content=\"Gilberto García\"/>\n" +
+				"       <meta name=\"mod-date\" content=\"05/05/2013\"/>\n" +
+                "       <!--jQuery, linked from a CDN-->\n"+
+                "       <script src=\"http://code.jquery.com/jquery-1.9.1.js\"></script>\n" +
+                "       <script src=\"http://code.jquery.com/ui/1.10.2/jquery-ui.js\"></script>\n" +
+                "       <!--jQueryUI Theme -->\n" +
+                "       <link rel=\"stylesheet\" href=\"http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css\" />\n" +
                 "       <link rel=\"stylesheet\" type=\"text/css\" href=\"http://yourRPiServer/WebResources/table_style.css\"></style>\n" +
                 "	</head>\n" +
                 "	<body>\n" +
-                "		<h1>Alarm Activity - Monitor System #1</h1>\n" +
-                "        <br>\n" +
-                "        AlarmByZones version: " + versionNumber + "\n" +
-                "        <br>\n" +
-                "        Build date: " + buildDate + "\n" +
-                "        <br>\n" +
-                "        Hardware: <a href=\"http://netduino.com/netduinoplus/specs.htm\" target=\"_blank\">Netduino Plus</a>\n" +
-                "        <br>\n" +
-                "        <br>\n" +
+                "       <div class=\"ui-widget\">\n" +
+                "       <div class=\"ui-widget-header ui-corner-top\">\n" +
+				"		<h2>Alarm Activity - Monitor System #1</h2></div>\n" +
+                "       <div class=\"ui-widget-content ui-corner-bottom\">\n" +
+				"        <br>\n" +
+				"        AlarmByZones version: " + versionNumber + "\n" +
+				"        <br>\n" +
+				"        Build date: " + buildDate + "\n" +
+				"        <br>\n" +
+				"        Hardware: <a href=\"http://netduino.com/netduinoplus/specs.htm\" target=\"_blank\">Netduino Plus</a>\n" +
+				"        <br>\n" +
+				"        <br>\n" +
 				"        <div>\n" +
 				"        <ul>\n" +
 				"        <li class=\"toplinks\"><a href='http://yourRPiServer/references.htm' target='_blank' title='Credits and contributors'>References</a></li>\n" +
@@ -87,7 +94,7 @@ namespace ResourceGenerator.Htm
 				"        <div style=\"border:1px solid #CCCCCC;\">" +
 				"        <p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>" +
 				"        </div>" +
-				"	</body>\n" +
+                "	</div></div></body>\n" +
 				"</html>\n";
 			Console.WriteLine("Creating about.htm");
 			FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite);
@@ -96,29 +103,29 @@ namespace ResourceGenerator.Htm
 			sw.Flush();
 			sw.Close();
 
-            Console.WriteLine("Copying new about.htm file to AlarmByZones Resources directory.");
-            //Programmatically copy new about.htm into AlarmByZones Resources directory
-            File.Copy(fileName, destinationPath,true);
+			Console.WriteLine("Copying new about.htm file to AlarmByZones Resources directory.");
+			//Programmatically copy new about.htm into AlarmByZones Resources directory
+			File.Copy(fileName, destinationPath,true);
 
-            Console.WriteLine("ResourceGenerator.Htm.About done!\n");
-        }
+			Console.WriteLine("ResourceGenerator.Htm.About done!\n");
+		}
 
-        public void CreateAboutHtmlMobile()
-        {
-            string pattern = @"AssemblyFileVersion\(""(?<Version>.*?"")";
-            string versionNumber = string.Empty;
-            string buildDate = DateTime.Now.ToLongDateString();
+		public void CreateAboutHtmlMobile()
+		{
+			string pattern = @"AssemblyFileVersion\(""(?<Version>.*?"")";
+			string versionNumber = string.Empty;
+			string buildDate = DateTime.Now.ToLongDateString();
 
-            if (File.Exists(assemblyInfoPath))
-            {
-                StreamReader srFromLocalFile = new StreamReader(assemblyInfoPath);
-                string OnMemory = srFromLocalFile.ReadToEnd();
+			if (File.Exists(assemblyInfoPath))
+			{
+				StreamReader srFromLocalFile = new StreamReader(assemblyInfoPath);
+				string OnMemory = srFromLocalFile.ReadToEnd();
 
-                if (Regex.Match(OnMemory, pattern).Success)
-                {
-                    versionNumber = Regex.Match(OnMemory, pattern).Groups["Version"].ToString().Trim('"');
-                }
-            }
+				if (Regex.Match(OnMemory, pattern).Success)
+				{
+					versionNumber = Regex.Match(OnMemory, pattern).Groups["Version"].ToString().Trim('"');
+				}
+			}
 
             string aboutMobileWebpage = "" +
                 "<!DOCTYPE HTML>\n" +
@@ -171,13 +178,13 @@ namespace ResourceGenerator.Htm
             sw.Flush();
             sw.Close();
 
-            Console.WriteLine("Copying new about-mobile.htm file to AlarmByZones Resources directory.");
-            //Programmatically copy new about.htm into AlarmByZones Resources directory
-            File.Copy(mobileFileName, destinationPathMobile, true);
+			Console.WriteLine("Copying new about-mobile.htm file to AlarmByZones Resources directory.");
+			//Programmatically copy new about.htm into AlarmByZones Resources directory
+			File.Copy(mobileFileName, destinationPathMobile, true);
 
-            Console.WriteLine("ResourceGenerator.Htm.About mobile done!\n");
-        }
+			Console.WriteLine("ResourceGenerator.Htm.About mobile done!\n");
+		}
 
 
-    }
+	}
 }

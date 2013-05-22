@@ -187,6 +187,8 @@
  *   04-21-2013              27.4.0.0            G. García          Added total uptime on dignostics web server option.
  *   
  *   04-28-2013              27.5.0.0            G. García          Modified about and about-mobile to save memory.
+ *   
+ *   05-05-2013              27.6.0.0            G. García          Added jquery-ui to WebControlPanel.
  */
 
 using System;
@@ -221,7 +223,6 @@ namespace AlarmByZones
         /// <summary>
         /// Alarm zones (Analog Input)
         /// </summary>
-        //static Microsoft.SPOT.Hardware.AnalogInput[] Zones = new Microsoft.SPOT.Hardware.AnalogInput[Alarm.User_Definitions.Constants.ACTIVE_ZONES];
         static Microsoft.SPOT.Hardware.AnalogInput[] Zones = {
                                                                  new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A0),
                                                                  new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A1),
@@ -232,7 +233,6 @@ namespace AlarmByZones
         /// <summary>
         /// Alarm zones LEDs (Digital Output)
         /// </summary>
-        //static Microsoft.SPOT.Hardware.OutputPort[] AlarmLeds = new Microsoft.SPOT.Hardware.OutputPort[Alarm.User_Definitions.Constants.ACTIVE_ZONES];
         static Microsoft.SPOT.Hardware.OutputPort[] AlarmLeds = {
                                                                 new Microsoft.SPOT.Hardware.OutputPort(Pins.GPIO_PIN_D2, false),
                                                                 new Microsoft.SPOT.Hardware.OutputPort(Pins.GPIO_PIN_D3, false),
