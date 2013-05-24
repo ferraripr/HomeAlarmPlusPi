@@ -6,7 +6,13 @@ $MOBILE = "0";
 $WUNDERGROUND_KEY_ID = "Your Wunderground Key ID";
 $ZIP_CODE = "Your Zip code";
 
-$current_time = exec("date +'%d %b %Y %r %Z'");
+/*Time Display the Linux way*/
+//$current_time = exec("date +'%d %b %Y %r %Z'");
+
+/*Time Display the PHP way*/
+/*Select your zone http://www.php.net/manual/en/class.datetimezone.php */
+date_default_timezone_set('America/New_York');
+$current_time = strtoupper(date('d M Y h:i:s a T'));
 
 if (isset($_GET['main-page']))
 {
