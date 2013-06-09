@@ -1,14 +1,26 @@
 <?php
 //USER PERSONAL SETTINGS
-$PushingBoxDeviceID = "Your PushingBox device ID";
 $NETDUINO_PLUS_PORT = 8085;
-$MOBILE = "0";
+
+//PUSHINGBOX SETTINGS
+$PushingBoxDeviceID = "Your PushingBox device ID";
+
+//PUSHOVERSETTINGS
+$APP_TOKEN = "Your Pushover App token";
+$USER_KEY = "Your Pushover User Key";
+
+//WUNDERGROUND SETTINGS
 $WUNDERGROUND_KEY_ID = "Your Wunderground Key ID";
 $ZIP_CODE = "Your Zip code";
 
+//DEBUG SETTINGS
+$PHP_DEBUG = 0;
+$MOBILE = "0";
+  
 /*Time Display the Linux way*/
 //$current_time = exec("date +'%d %b %Y %r %Z'");
 
+//TIME DISPLAY
 /*Time Display the PHP way*/
 /*Select your zone http://www.php.net/manual/en/class.datetimezone.php */
 date_default_timezone_set('America/New_York');
@@ -25,6 +37,9 @@ if (isset($_GET['main-page']))
 
   //send notification to PushingBox
   exec('curl \'http://api.pushingbox.com/pushingbox?devid='.$PushingBoxDeviceID.'\'');
+  
+  //send notification to Pushover
+  exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi."   -F "title=Alarm Trigger"   https://api.pushover.net/1/messages.json');
   
   $output = shell_exec('ls -la');
   print <<< EOT
@@ -64,7 +79,7 @@ jQuery(document).ready(function($) {
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="05/04/2013"/>
+<meta name="mod-date" content="06/09/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
