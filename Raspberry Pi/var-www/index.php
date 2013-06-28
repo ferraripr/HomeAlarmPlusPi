@@ -75,11 +75,21 @@ jQuery(document).ready(function($) {
 });
 </script>
 
+  <script>
+  $(function() {
+    $( "#menu" ).menu();
+  });
+  </script>
+  
+  <style>
+  .ui-menu { width: 180px; }
+  </style>
+  
 <head>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="06/09/2013"/>
+<meta name="mod-date" content="06/27/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -101,28 +111,41 @@ jQuery(document).ready(function($) {
 <link rel="stylesheet" type="text/css" href="WebResources/table_style.css"></style>
 <title>RASPBERRY PI Control Panel - Home</title>
 </head>
-<body>
+<body class="clip_page">
         <div class="ui-widget">
-		<div class="ui-widget-header ui-corner-top">
-		<h2>HomeAlarmPlus Pi</h2></div>
+        <div class="ui-widget-header ui-corner-top">
+        <h2>HomeAlarmPlus Pi</h2>
+		</div>
         <div class="ui-widget-content ui-corner-bottom">		
         <p>System Time: <b>{$current_time}</b></p>
 		<p id="c_location">Location: </p>
 		<p id="c_forecast">Forecast: </p>
 		<p>DEBUG: Value of Mobile is :{$MOBILE}</p>
 		<br/>
-<div><ul>
-<li class="toplinks"><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank" title='Access alarm panel'>Alarm Panel [Netduino Plus]</a></li>
-<li class="toplinks"><a href="/weather.html" target="_blank" title='weather'>Weather</a></li>
-<li class="toplinks"><a href="/sysinfo/index.php" target="_blank" title='System Info'>System Info</a></li>
-<li class="toplinks"><a href="/sysinfo_v2/index.php" target="_blank" title='System Info'>System Info v2</a></li>
-<li class="toplinks"><a href="/mobile/main.html" target="_blank" title='Mobile'>Mobile version</a></li>
 
-<li class="toplinks"><a href='/about.htm' title='Credits and contributors'>ABOUT</a> </li>
-</ul></div>
-        </br>
-		<table class="gridtable" border="1" width="20%">
-		        <tr>
+<ul id="menu">
+  <li>
+    <a href="#">Main Panel</a>
+    <ul>
+      <li><a href="/about.htm" target="_blank">About</a></li>
+      <li><a href="/sysinfo/index.php" target="_blank">System Info</a></li>
+      <li><a href="/sysinfo_v2/index.php" target="_blank">System Info v2</a></li>
+    </ul>
+  </li>
+  
+  </li>
+  <li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank">Alarm Panel [Netduino Plus]</a></li>
+  <li><a href="/weather.html" target="_blank">Weather</a></li>
+  <li>
+    <a href="#">Other Platforms</a>
+      <ul>
+        <li><a href="/mobile/main.html" target="_blank">Mobile</a></li>
+      </ul>
+</ul>
+
+        <br/>
+        <table class="gridtable" border="1" width="20%">
+                <tr>
                    <td id="c_current_conditions"><center>Currently</center><br/></td>
 				   <td id="c_temperature"><center>Temperature</center></td>
 				</tr> 
