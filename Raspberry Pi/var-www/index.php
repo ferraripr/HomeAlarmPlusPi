@@ -1,17 +1,16 @@
 <?php
 //USER PERSONAL SETTINGS
-$NETDUINO_PLUS_PORT = 8085;
+$NETDUINO_PLUS_PORT     = 8085;
+$RASPBERRYPI1_PLUS_PORT = 8086;
+$RASPBERRYPI2_PLUS_PORT = 8087;
 
 //PUSHINGBOX SETTINGS
 $PushingBoxDeviceID = "Your PushingBox device ID";
 
 //PUSHOVERSETTINGS
 $APP_TOKEN = "Your Pushover App token";
-$USER_KEY = "Your Pushover User Key";
+$USER_KEY  = "Your Pushover User Key";
 
-//WUNDERGROUND SETTINGS
-$WUNDERGROUND_KEY_ID = "Your Wunderground Key ID";
-$ZIP_CODE = "Your Zip code";
 
 //DEBUG SETTINGS
 $PHP_DEBUG = 0;
@@ -41,7 +40,6 @@ if (isset($_GET['main-page']))
   //send notification to Pushover
   exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi."   -F "title=Alarm Trigger"   https://api.pushover.net/1/messages.json');
   
-  $output = shell_exec('ls -la');
   print <<< EOT
 <!doctype html>
 <html lang="en">
@@ -50,30 +48,7 @@ if (isset($_GET['main-page']))
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
 
 <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->
-<script>
-jQuery(document).ready(function($) {
-  $.ajax({
-  url : "http://api.wunderground.com/api/{$WUNDERGROUND_KEY_ID}/conditions/forecast/q/{$ZIP_CODE}.json",
-  dataType : "jsonp",
-  success : function(parsed_json) {
-
-  var temp_f = parsed_json['current_observation']['temp_f'] + '&#8457;' ;
-  var current_conditions = parsed_json['current_observation']['weather']  ;
-  var location = parsed_json['current_observation']['display_location']['full'];
-  var icon_url_current = parsed_json['current_observation']['icon_url'];
-  var forecast = parsed_json['forecast']['simpleforecast']['forecastday'];
-  var image_current = "<img src=\""+ icon_url_current +"\" width=\"40\" height=\"40\" >";
-    
-  //interested in next day forecast.
-  var index = 1;
-  $("#c_forecast").append("<b>" + forecast[index]['date']['weekday'] + " " + forecast[index]['conditions'] + ". High of " + forecast[index]['high']['fahrenheit'] + '&#8457;' + " and Low of " + forecast[index]['low']['fahrenheit'] + '&#8457;' + ".</b>");	
-  $("#c_current_conditions").append("<br/><center>"+image_current+"<br/><b>" + current_conditions +"</b></center>");
-  $("#c_location").append("<b>" + location +"</b>");
-  $("#c_temperature").append("<br/><center><b><font size=\"6\">" + temp_f +"</font></b></center>");
-  }
-  });
-});
-</script>
+<script src="WebResources/wunderground_query.js"></script>
 
   <script>
   $(function() {
@@ -89,7 +64,7 @@ jQuery(document).ready(function($) {
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="06/27/2013"/>
+<meta name="mod-date" content="07/06/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -102,62 +77,69 @@ jQuery(document).ready(function($) {
 <?php endif; ?>
 
 <!--jQuery, linked from a CDN-->
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"/></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"/></script>
 <!--jQueryUI Theme -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" />
 
-<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"></style>	   
-<link rel="stylesheet" type="text/css" href="WebResources/table_style.css"></style>
+<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"/>	   
+<link rel="stylesheet" type="text/css" href="WebResources/table_style.css"/>
 <title>RASPBERRY PI Control Panel - Home</title>
 </head>
-<body class="clip_page">
+<body>
         <div class="ui-widget">
         <div class="ui-widget-header ui-corner-top">
         <h2>HomeAlarmPlus Pi</h2>
 		</div>
         <div class="ui-widget-content ui-corner-bottom">		
         <p>System Time: <b>{$current_time}</b></p>
-		<p id="c_location">Location: </p>
-		<p id="c_forecast">Forecast: </p>
-		<p>DEBUG: Value of Mobile is :{$MOBILE}</p>
-		<br/>
+        <p id="c_location">Location: </p>
+        <p id="c_current_forecast">Forecast: </p>
+	<br/>
 
 <ul id="menu">
-  <li>
-    <a href="#">Main Panel</a>
-    <ul>
-      <li><a href="/about.htm" target="_blank">About</a></li>
-      <li><a href="/sysinfo/index.php" target="_blank">System Info</a></li>
-      <li><a href="/sysinfo_v2/index.php" target="_blank">System Info v2</a></li>
-    </ul>
-  </li>
-  
-  </li>
   <li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank">Alarm Panel [Netduino Plus]</a></li>
   <li><a href="/weather.html" target="_blank">Weather</a></li>
+  <li>
+    <a href="#">Raspberry Pi2</a>
+    <ul>
+      <li><a href="http://{$_SERVER['SERVER_NAME']}:{$RASPBERRYPI2_PLUS_PORT}" target="_blank">Main Page</a></li>
+      <li class="ui-state-disabled"><a href="#">Option1</a></li>
+      <li class="ui-state-disabled"><a href="#">Option2</a></li>
+    </ul>
+  </li>
   <li>
     <a href="#">Other Platforms</a>
       <ul>
         <li><a href="/mobile/main.html" target="_blank">Mobile</a></li>
+        <li><a href="/Touch" target="_blank">Tablet</a></li>
       </ul>
+  </li>
+  <li>
+    <a href="#">Help</a>
+    <ul>
+      <li><a href="/references.htm" target="_blank">References</a></li>
+      <li><a href="/sysinfo/index.php" target="_blank">System Info</a></li>
+      <li><a href="/sysinfo_v2/index.php" target="_blank">System Info v2</a></li>
+    </ul>
+  </li>
 </ul>
 
         <br/>
         <table class="gridtable" border="1" width="20%">
                 <tr>
                    <td id="c_current_conditions"><center>Currently</center><br/></td>
-				   <td id="c_temperature"><center>Temperature</center></td>
-				</tr> 
-	   </table>
+		   <td id="c_temperature"><center>Temperature</center></td>
+                </tr> 
+        </table>
 <br/><br/><br/><br/><br/><br/><br/>
 <div style="border:1px solid #CCCCCC;">
 <p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>
 </div>
 </div>
 </div>
-</body>
-</html>
+
+</body></html>
 EOT;
 }
 
