@@ -2,7 +2,7 @@ var Wunderground_Key_ID = "Your Wunderground ID";
 var ZipCode = "Your Zip Code";
 jQuery(document).ready(function($) {
   $.ajax({
-  url : "http://api.wunderground.com/api/" + Wunderground_Key_ID + "/conditions/forecast/alerts/q/" + ZipCode + ".json",
+  url : "http://api.wunderground.com/api/" + Wunderground_Key_ID + "/conditions/forecast10day/alerts/q/" + ZipCode + ".json",
   dataType : "jsonp",
   success : function(parsed_json) {
 

@@ -64,7 +64,7 @@ if (isset($_GET['main-page']))
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="07/06/2013"/>
+<meta name="mod-date" content="07/07/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -103,7 +103,7 @@ if (isset($_GET['main-page']))
   <li>
     <a href="#">Raspberry Pi2</a>
     <ul>
-      <li><a href="http://{$_SERVER['SERVER_NAME']}:{$RASPBERRYPI2_PLUS_PORT}" target="_blank">Main Page</a></li>
+      <li><a href="http://{$_SERVER['SERVER_NAME']}:{$RASPBERRYPI2_PORT}" target="_blank">Main Page</a></li>
       <li class="ui-state-disabled"><a href="#">Option1</a></li>
       <li class="ui-state-disabled"><a href="#">Option2</a></li>
     </ul>
@@ -111,7 +111,7 @@ if (isset($_GET['main-page']))
   <li>
     <a href="#">Other Platforms</a>
       <ul>
-        <li><a href="/mobile/main.html" target="_blank">Mobile</a></li>
+        <li><a href="/mobile" target="_blank">Mobile</a></li>
         <li><a href="/Touch" target="_blank">Tablet</a></li>
       </ul>
   </li>
