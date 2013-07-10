@@ -64,7 +64,7 @@ if (isset($_GET['main-page']))
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="07/07/2013"/>
+<meta name="mod-date" content="07/09/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -99,27 +99,37 @@ if (isset($_GET['main-page']))
 
 <ul id="menu">
   <li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank">Alarm Panel [Netduino Plus]</a></li>
+  <div style="border-bottom:1px;"></div>
   <li><a href="/weather.html" target="_blank">Weather</a></li>
+  <div style="border-bottom:1px;"></div>
   <li>
     <a href="#">Raspberry Pi2</a>
+	<div style="border-bottom:1px;"></div>
     <ul>
       <li><a href="http://{$_SERVER['SERVER_NAME']}:{$RASPBERRYPI2_PORT}" target="_blank">Main Page</a></li>
-      <li class="ui-state-disabled"><a href="#">Option1</a></li>
+      <div style="border-bottom:1px;"></div>
+	  <li class="ui-state-disabled"><a href="#">Option1</a></li>
+	  <div style="border-bottom:1px;"></div>
       <li class="ui-state-disabled"><a href="#">Option2</a></li>
     </ul>
   </li>
+  <div style="border-bottom:1px;"></div>
   <li>
     <a href="#">Other Platforms</a>
       <ul>
         <li><a href="/mobile" target="_blank">Mobile</a></li>
+	<div style="border-bottom:1px;"></div>
         <li><a href="/Touch" target="_blank">Tablet</a></li>
       </ul>
   </li>
+  <div style="border-bottom:1px;"></div>
   <li>
     <a href="#">Help</a>
     <ul>
       <li><a href="/references.htm" target="_blank">References</a></li>
+      <div style="border-bottom:1px;"></div>
       <li><a href="/sysinfo/index.php" target="_blank">System Info</a></li>
+      <div style="border-bottom:1px;"></div>
       <li><a href="/sysinfo_v2/index.php" target="_blank">System Info v2</a></li>
     </ul>
   </li>
