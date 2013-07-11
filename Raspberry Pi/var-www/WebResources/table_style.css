@@ -1,4 +1,7 @@
+
 table.gridtable {
+    position:relative;
+    left:10px;
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;
 	color:#333333;

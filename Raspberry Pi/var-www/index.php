@@ -57,14 +57,14 @@ if (isset($_GET['main-page']))
   </script>
   
   <style>
-  .ui-menu { width: 180px; }
+  .ui-menu { width: 180px; position:relative; left:10px;}
   </style>
   
 <head>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="07/09/2013"/>
+<meta name="mod-date" content="07/10/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
