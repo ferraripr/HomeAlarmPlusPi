@@ -4,14 +4,14 @@
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="07/08/2013"/>
+        <meta name="mod-date" content="07/12/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="apple-mobile-web-app-title" content="HomeAlarmPlus Pi Mobile" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<link rel="stylesheet" type="text/css" href="../WebResources/jquery_table_style.css"></style>
+        <link rel="stylesheet" type="text/css" href="../WebResources/jquery_table_style_blue.css"></style>
 
 		<style>
 		.splash {
@@ -73,6 +73,12 @@ $(document).on("swiperight", function(event, ui) {
 $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
 });
 </script>
+	<style>
+        #navilink {
+    	   -webkit-border-radius: 0.1em /*{global-radii-buttons}*/;
+           border-radius: 0.1em /*{global-radii-buttons}*/;                   
+        }
+	</style>
 	
     </head>
     <body>
@@ -93,7 +99,7 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
                 <h3>
                     HomeAlarmPlus Pi
                 </h3>
-		<a href="#nav-panel" data-theme="b"  data-icon="bars"    data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
+                <a id="navilink" href="#nav-panel" data-theme="b"  data-icon="bars"    data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
             </div>
         <div data-role="content">
             <div class="content-primary">
@@ -177,9 +183,9 @@ else
 						</li>
 						<li data-filtertext="Netduino Plus Diagnostics">
 						<?php 
-						       $NETDUINO_PLUS_PORT = 8085;
-                                                       $link = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT;
-						       echo "<a href= $link/diag-mobile" rel="external" >Diagnostics</a>"; 
+                                                   $NETDUINO_PLUS_PORT = 8085;
+                                                   $link = "http://".$_SERVER['SERVER_NAME']. ":" . $NETDUINO_PLUS_PORT . "/diag-mobile";
+                                                   echo "<a href= $link rel='external'>Diagnostics</a>"; 
                                                  ?>
 						</li>						
 						
@@ -188,10 +194,10 @@ else
 						    <h3>About</h3>
                             <ul data-role="listview" data-theme="a" data-divider-theme="a">
                                 <li data-filtertext="About Home Alarm Plus">
-				<?php 
+                                <?php 
 				   $NETDUINO_PLUS_PORT = 8085;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT;
-				   echo "<a href= $link/about-mobile" rel="external" >HomeAlarmPlus</a>"; 
+                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/about-mobile";
+                                   echo "<a href= $link rel='external'>HomeAlarmPlus</a>"; 
                                 ?>
                                 </li>
                                 <li data-filtertext="About Home Alarm Plus Pi">
@@ -210,8 +216,8 @@ else
                 </h3>
 		                <?php 
 				   $RASPBERRYPI1_PORT = 8086;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT;
-				   echo "<a href= $link/mobile/main.html#main-page" data-rel="back"  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/main.html#main-page";
+                                   echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
                                 ?>
 				<div data-role="content"><p id="c_location">Location: </p></div>
             </div>			
@@ -268,8 +274,8 @@ else
                 </h3>
 		                <?php 
 				   $RASPBERRYPI1_PORT = 8086;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT;
-				   echo "<a href= $link/mobile/main.html#main-page" data-rel="back"  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/main.html#main-page";
+                                   echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
                                 ?>		
 				<div data-role="content" data-content-theme="e">
 				    <div class="content-primary">
