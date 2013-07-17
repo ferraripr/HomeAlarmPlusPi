@@ -105,6 +105,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Notifications\Pushover.cs" />
+    <Compile Include="Notifications\PushingBox.cs" />    
     <Compile Include="PushingBox\PushingBox.cs" />
     <Compile Include="SMTPClient.cs" />
     <Compile Include="System.Diagnostics.Stopwatch.cs" />
@@ -123,16 +125,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config.ini" />
-    <None Include="Resources\about-mobile.html" />
+    <None Include="Resources\assy-builddate.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\about.htm" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>

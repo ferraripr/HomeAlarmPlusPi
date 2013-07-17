@@ -3,7 +3,7 @@
 //  This code was written by Gilberto García. It is released under the terms of 
 //  the Creative Commons "Attribution 3.0 Unported" license.
 //  http://creativecommons.org/licenses/by/3.0/
-//  Copyright (c) 2012 by Gilberto García, twitter @ferraripr
+//  Copyright (c) 2012, 2013 by Gilberto García, twitter @ferraripr
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -32,12 +32,14 @@ namespace ResourceGenerator.Htm
 		/// </summary>
 		private static string fileName = "about.htm";
 		private static string mobileFileName = "about-mobile.html";
+        private static string assyFileName = "assy-builddate.html";
 		
 		/// <summary>
 		/// Destination path
 		/// </summary>
 		private string destinationPath = @"..\..\..\Resources\" + fileName;
 		private string destinationPathMobile = @"..\..\..\Resources\" + mobileFileName;
+        private string destinationPathAssy = @"..\..\..\Resources\" + assyFileName;
 
 		public void CreateAboutHtml()
 		{
@@ -89,7 +91,7 @@ namespace ResourceGenerator.Htm
 				"        </ul>\n" +
 				"        </div><br>\n" +
 				"        <br>\n" +
-                "        <a href=\"/\">Back to main page...</a>\n" +
+                "        <a href=\"http://yourNetduinoIP/\">Back to main page...</a>\n" +
 				"        <br>\n" +
 				"        <div style=\"border:1px solid #CCCCCC;\">" +
 				"        <p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>" +
@@ -146,37 +148,37 @@ namespace ResourceGenerator.Htm
                 "       <script src=\"http://yourRPiServer/WebResources/jquery_animate_collapse.js\"></script>\n" +
                 "	</head>\n" +
                 "	<body>\n" +
-                "		<div data-role=\"page\" id=\"about\" data-add-back-btn=\"true\" data-theme=\"b\" data-content-theme=\"b\">\n" +
-                "          <div data-theme=\"b\" data-role=\"header\" >\n" +
+                "		<div data-role='page' id='about' data-add-back-btn='true' data-theme='b' data-content-theme='b'>\n" +
+                "          <div data-theme='b' data-role='header' >\n" +
                 "          <h3>About</h3>\n" +
-                "          <div data-role=\"content\">\n" +
-                "             <div class=\"content-primary\">\n" +
-                "                <h2>HomeAlarmPlus</h2>\n" +
-                "                <p>Programmed by Gilberto Garc&#237;a</p>\n" +
-                "                <p>For latest source code visit: <a href=\"https://github.com/ferraripr/HomeAlarmPlus\" rel=\"external\">Repository</a></p>\n" +
-                "                <p><b>AlarmByZones version:</b> " + versionNumber + "</p>\n" +
-                "                <p><b>Build date:</b> " + buildDate + "</p>\n" +
-                "                <p><b>Hardware:</b> <a href=\"http://netduino.com/netduinoplus/specs.htm\" target=\"_blank\">Netduino Plus</a></p>\n" +
-                "            <ul>\n" +
+                "          <a href='http://yourRPiServer/mobile/index.php' data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>" +
+                "          </div>" +
+				"          <div data-role='content'>\n" +
+				"             <div class='content-primary'>\n" +
+				"                <h2>HomeAlarmPlus</h2>\n" +
+				"                <p>Programmed by Gilberto Garc&#237;a</p>\n" +
+				"                <p>For latest source code visit: <a href='https://github.com/ferraripr/HomeAlarmPlus' rel=\"external\">Repository</a></p>\n" +
+				"                <p><b>AlarmByZones version:</b> " + versionNumber + "</p>\n" +
+				"                <p><b>Build date:</b> " + buildDate + "</p>\n" +
+				"                <p><b>Hardware:</b> <a href='http://netduino.com/netduinoplus/specs.htm' target='_blank'>Netduino Plus</a></p>\n" +
+				"            <ul>\n" +
                 "                <li class=\"toplinks\"><a href='http://yourRPiServer/mobile/references-mobile.html' title='Credits and contributors'>References</a></li>\n" +
-                "                <br>\n" +
-                "            </ul>\n" +
-                "        </div>" +
-                "        </div>" +
-                "        </div>" +
-                "        <div data-role=\"footer\" class=\"footer-docs\" data-theme=\"c\">\n" +
-		        "            <p class=\"jqm-version\"></p>\n" +
-		        "            <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>\n" +
-	            "        </div>\n" +
-                "        </div>" +
-                "	</body>\n" +
-                "</html>\n";
-            Console.WriteLine("Creating about-mobile.html");
-            FileStream file = new FileStream(mobileFileName, FileMode.Create, FileAccess.ReadWrite);
-            StreamWriter sw = new StreamWriter(file);
-            sw.WriteLine(aboutMobileWebpage);
-            sw.Flush();
-            sw.Close();
+				"                <br>\n" +
+				"            </ul>\n" +
+				"        </div>\n" +
+				"        <div data-role='footer' class='footer-docs' data-theme='c' data-position='fixed'>\n" +
+				"            <p class='jqm-version'></p>\n" +
+				"            <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>\n" +
+				"        </div>\n" +
+				"        </div>" +
+				"	</body>\n" +
+				"</html>\n";
+			Console.WriteLine("Creating about-mobile.html");
+			FileStream file = new FileStream(mobileFileName, FileMode.Create, FileAccess.ReadWrite);
+			StreamWriter sw = new StreamWriter(file);
+			sw.WriteLine(aboutMobileWebpage);
+			sw.Flush();
+			sw.Close();
 
 			Console.WriteLine("Copying new about-mobile.htm file to AlarmByZones Resources directory.");
 			//Programmatically copy new about.htm into AlarmByZones Resources directory
@@ -184,6 +186,53 @@ namespace ResourceGenerator.Htm
 
 			Console.WriteLine("ResourceGenerator.Htm.About mobile done!\n");
 		}
+
+        public void CreateAssyBuildDate()
+        {
+            string pattern = @"AssemblyFileVersion\(""(?<Version>.*?"")";
+            string versionNumber = string.Empty;
+            string buildDate = DateTime.Now.ToLongDateString();
+
+            if (File.Exists(assemblyInfoPath))
+            {
+                StreamReader srFromLocalFile = new StreamReader(assemblyInfoPath);
+                string OnMemory = srFromLocalFile.ReadToEnd();
+
+                if (Regex.Match(OnMemory, pattern).Success)
+                {
+                    versionNumber = Regex.Match(OnMemory, pattern).Groups["Version"].ToString().Trim('"');
+                }
+            }
+            string assyWebpage = "" +
+                "<!DOCTYPE HTML>\n" +
+                "<html>\n" +
+                "	<head>\n" +
+                "       <meta name=\"mod-date\" content=\"07/14/2013\"/>\n" +
+                "	</head>" +
+                "	<body>" +
+                "<table>" +
+                "<tr bgcolor='#6a91b1'>" +
+                "<td colspan='2' class='head center'>AssemblyInfo</td>\n" +
+                "</tr><tr>\n" +
+                "<td width=110>Version</td><td width=268>" + versionNumber + "</td>\n" +
+                "</tr><tr>\n" +
+                "<td>Build date</td><td>" + buildDate + "</td></tr>\n" +
+                "</table>" +
+                "	</body>\n" +
+                "</html>\n";
+            Console.WriteLine("Creating " + assyFileName);
+            FileStream file = new FileStream(assyFileName, FileMode.Create, FileAccess.ReadWrite);
+            StreamWriter sw = new StreamWriter(file);
+            sw.WriteLine(assyWebpage);
+            sw.Flush();
+            sw.Close();
+
+            Console.WriteLine("Copying new " + assyFileName + " file to AlarmByZones Resources directory.");
+            //Programmatically copy new assy-builddate.htm into AlarmByZones Resources directory
+            File.Copy(assyFileName, destinationPathAssy, true);
+
+            Console.WriteLine("ResourceGenerator.Htm.assybuilddate  done!\n");
+        }
 
 
 	}
