@@ -255,7 +255,7 @@
 	<body onload="updateDisplay()">
 		<table>
 			<tr>
-				<td colspan="4" class="head center">General Info</td>
+				<td colspan="4" class="head center">Raspberry Pi General Info</td>
 			</tr>
 			<tr>
 				<td colspan="2">Hostname</td>
