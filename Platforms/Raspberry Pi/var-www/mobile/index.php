@@ -1,23 +1,27 @@
 
+<?php
+//USER PERSONAL SETTINGS
+$RASPBERRYPI1_PORT  = 8086;
+$NETDUINO_PLUS_PORT = 8085;
+
+//PUSHOVERSETTINGS
+$APP_TOKEN = "3RmkqUTnSRbW5675YnjeueBwETWd8f";
+$USER_KEY = "rXr8bNAfRCjWfeipV3uLAAsKJkEmDy";
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="07/12/2013"/>
+        <meta name="mod-date" content="07/16/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="apple-mobile-web-app-title" content="HomeAlarmPlus Pi Mobile" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />		
         <link rel="stylesheet" type="text/css" href="../WebResources/jquery_table_style_blue.css"></style>
-
-		<style>
-		.splash {
-                 align: center;
-                }
-		</style>
+		
         <!--http://jsfiddle.net/frankdenouter/Lp9P2/-->
         <link rel="stylesheet" href="../WebResources/weather_table.css" />
 		
@@ -29,45 +33,41 @@
 		
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		
-		<script src="http://jquerymobile.com/demos/1.3.0-beta.1/js/jquery.mobile-1.3.0-beta.1.js"></script>
-				
         <script>
             $(document).bind("mobileinit", function(){
-                $.mobile.defaultPageTransition = 'slide';
+	        $.mobile.defaultPageTransition = 'flow';
                 $.mobile.defaultDialogTransition = 'slide';
                 $.mobile.loadingMessageTextVisible = true;
-                $.mobile.pageLoadErrorMessage = 'Page cannot be accessed this time!';
+                $.mobile.pageLoadErrorMessage = 'Page cannot be accessed this time!';				
             });
         </script>
 		
-        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 		
+        <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->
+        <script src="../WebResources/wunderground_query.js"></script>
 		
-        <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->		
-        <script src="../WebResources/wunderground_query.js"></script>	   
         <!-- http://jsfiddle.net/jerone/gsNzT/ -->
         <script src="../WebResources/jquery_animate_collapse.js"></script>
-		
+	
         <script>
-            try {
-		            $(function () 
-				    {
-                        setTimeout(hideSplash, 2000);
-			        });
-				    function hideSplash() 
-				    {
-                        $.mobile.changePage("#main-page", "fade");
-			        }
-				 } 
-			catch (error) 
-			{
-		            console.error("Your javascript has an error: " + error);
-			}
-    </script>
+            $(document).on('pagebeforecreate', '[data-role="page"]', function(){     
+                setTimeout(function(){
+                     $.mobile.loading('show');
+    },1);    
+});
+
+            $(document).on('pageshow', '[data-role="page"]', function(){  
+                setTimeout(function(){
+                   $.mobile.loading('hide');
+                },1000);	
+});
+        </script>
+
 
 <script>
 $(document).on("swipeleft", function(event, ui) {
-$( "#nav-panel").panel("open", {display: 'push', position: 'right'} );
+$( "#nav-panel").panel("close", {display: 'push', position: 'right'} );
 });
 $(document).on("swiperight", function(event, ui) {
 $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
@@ -79,20 +79,13 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
            border-radius: 0.1em /*{global-radii-buttons}*/;                   
         }
 	</style>
-	
+		
     </head>
     <body>
               <?php
-		   //PUSHOVERSETTINGS
-		   $APP_TOKEN = "Your Pushover Token";
-		   $USER_KEY = "Your User Key";
-		   exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi Mobile."   -F "title=Web Trigger"   https://api.pushover.net/1/messages.json');
+	         exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi Mobile."   -F "title=Web Trigger"   https://api.pushover.net/1/messages.json');
                ?>
-	       <div data-role="page" data-theme="b" id="splash" style="background-color: #fff;"> 
-               <div class="splash">
-	       <img src="../images/Splash_640_400.png" alt="splash" />
-            </div>
-        </div>
+
         <!-- Home -->
         <div data-role="page" id="main-page" data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" class="jqm-header" data-fullscreen="true">
@@ -140,13 +133,7 @@ else
 }
 ?>
                 </table>
-                <p id="c_zone"></p>
-<!--
-                <h2>HomeAlarmPlus Pi</h2>
-                <p>Programmed by Gilberto Garc&#237;a</p>
-                <p>Weather data from <a href="http://www.wunderground.com/" rel="external">Wunderground.com.</a></p>
-                <p>For latest source code visit: <a href="https://github.com/ferraripr/HomeAlarmPlusPi" rel="external">Repository</a></p>
--->				
+                <p id="c_zone"></p>			
             </div>
 
         </div><!-- /content -->
@@ -169,57 +156,55 @@ else
             </style>
 
 				<div data-role="panel" data-position="left"  data-display="reveal" data-dismissible="true" id="nav-panel" data-theme="a">
-
 					<ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
 					    <li data-role="list-divider">Main Menu</li>
 						<li data-icon="delete" style="background-color:#111;">
-							<a href="#" data-rel="close">Close menu</a>
-						</li>
+						    <a href="#" data-rel="close">Close menu</a>
+                                                </li>
+                                                <li data-filtertext="Settings">
+                                                    <a href="#" rel="external">Settings</a>
+                                                </li>						
+                                                <li data-filtertext="Cameras">
+                                                    <a href="#" rel="external">Cameras</a>
+                                                </li>
 						<li data-filtertext="weather data">
-							<a href="#weather" rel="external">Weather</a>
+                                                    <a href="#weather" rel="external">Weather</a>
 						</li>
-						<li data-filtertext="system information">
-							<a href="../sysinfo_v2/index.php" rel="external" >System Info</a>
-						</li>
-						<li data-filtertext="Netduino Plus Diagnostics">
-						<?php 
-                                                   $NETDUINO_PLUS_PORT = 8085;
-                                                   $link = "http://".$_SERVER['SERVER_NAME']. ":" . $NETDUINO_PLUS_PORT . "/diag-mobile";
-                                                   echo "<a href= $link rel='external'>Diagnostics</a>"; 
-                                                 ?>
+						<li data-filtertext="Diagnostics">
+						    <a href="diagnostics.php" rel="external" >Diagnostics</a>
 						</li>						
 						
 						<div data-role="collapsible-set" data-theme="a">
 						<div data-role="collapsible" data-iconpos="right" data-collapsed="true">
-						    <h3>About</h3>
-                            <ul data-role="listview" data-theme="a" data-divider-theme="a">
-                                <li data-filtertext="About Home Alarm Plus">
-                                <?php 
-				   $NETDUINO_PLUS_PORT = 8085;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/about-mobile";
-                                   echo "<a href= $link rel='external'>HomeAlarmPlus</a>"; 
-                                ?>
-                                </li>
-                                <li data-filtertext="About Home Alarm Plus Pi">
-                                    <a href="#about-hapluspi" rel="external" >HomeAlarmPlus Pi</a>
-                                </li>
-                            </ul>
+						<h3>About</h3>
+                                                <ul data-role="listview" data-theme="a" data-divider-theme="a">
+                                                    <li data-filtertext="About Home Alarm Plus">								
+                                                        <a href="#about-netduino" rel="external">HomeAlarmPlus</a>
+                                                    </li>
+                                                    <li data-filtertext="About Home Alarm Plus Pi">
+                                                        <a href="#about-hapluspi" rel="external" >HomeAlarmPlus Pi</a>
+                                                    </li>
+                                                </ul>
 						</div>
 					</ul>
 				</div><!-- /panel -->
         </div><!-- /main-page -->
-		
+		</div>
+				
         <div data-role="page" id="weather"  data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" class="jqm-header" data-fullscreen="true">
                 <h3>
                     Weather
                 </h3>
 		                <?php 
-				   $RASPBERRYPI1_PORT = 8086;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/main.html#main-page";
-                                   echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
-                                ?>
-				<div data-role="content"><p id="c_location">Location: </p></div>
+                           $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                        ?>
+				<div data-role="content"><p id="c_location">Location: </p>
+                <p id="c_alerts"><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                   <strong id="s_location">Alerts for </strong> 
+				</p>
+				</div>
             </div>			
             <div data-role="collapsible-set" data-content-theme="e">
                <div data-theme="c" data-role="collapsible" data-collapsed="false">
@@ -270,27 +255,71 @@ else
         <div data-role="page" id="about-hapluspi" data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" >
                 <h3>
-                    About
+                    About - HomeAlarmPlus Pi
                 </h3>
-		                <?php 
-				   $RASPBERRYPI1_PORT = 8086;
-                                   $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/main.html#main-page";
-                                   echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
-                                ?>		
+                <?php 
+                           $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                ?>	
+            </div>          
+			<div data-role='content'>						
 				<div data-role="content" data-content-theme="e">
 				    <div class="content-primary">
 				        <h2>HomeAlarmPlus Pi</h2>
 				        <p>Programmed by Gilberto Garc&#237;a</p>
-					<p>Weather data from <a href="http://www.wunderground.com/" rel="external">Wunderground.com.</a></p>
+                                        <p>Weather data from <a href="http://www.wunderground.com/" rel="external">Wunderground.com.</a></p>
 				        <p>For latest source code visit: <a href="https://github.com/ferraripr/HomeAlarmPlusPi" rel="external">Repository</a></p>
 				    </div>
 				</div>
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
-		       <p class="jqm-version"></p>
+		   <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
+           </div>			
+        </div><!-- /about raspberry pi page -->
+
+        <div data-role="page" id="about-netduino" data-theme="b" data-content-theme="b" >
+            <div data-theme="b" data-role="header"  data-fullscreen="true">
+                <h3>
+                    About - HomeAlarmPlus
+                </h3>
+		        <?php 
+                           $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                ?>
+            </div>          
+			<div data-role='content'>						
+				    <div class="content-primary">
+				        <h2>HomeAlarmPlus</h2>
+				        <p>Programmed by Gilberto Garc&#237;a</p>						
+                        <p>Weather data from <a href="http://www.wunderground.com/" rel='external'>Wunderground.com.</a></p>
+				        <p>For latest source code visit: <a href="https://github.com/ferraripr/HomeAlarmPlusPi" rel='external'>Repository</a></p>
+                        <p><b>Hardware:</b> <a href='http://netduino.com/netduinoplus/specs.htm' target='_blank'>Netduino Plus</a></p>
+						<ul>
+                          <li class="toplinks">
+                          <?php 
+                             $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/references-mobile.html";
+                             echo "<a href= $link rel='external'  title='Credits and contributors'>References</a>"; 
+                          ?>
+						  </li>
+                          <br>
+                        </ul>
+						<?php						   
+                           try {
+                                $link2 = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/assy";
+                                $netduino_file = file_get_contents($link2);
+                                echo $netduino_file;
+                           } 
+                           catch (Exception $e) {
+                                echo 'Page not available this time!';
+                           }
+						?>
+				    </div>
+            </div>
+		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
 	       </div>			
-        </div><!-- /about page -->	
+        </div><!-- /about netduino plus page -->		
+		
 		<br>
     </body>
 </html>
