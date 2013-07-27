@@ -6,8 +6,13 @@ $NETDUINO_PLUS_PORT = 8085;
 //PUSHOVERSETTINGS
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 $APP_TOKEN = "Pushover Token";
 $USER_KEY = "Pushover User Key";
+=======
+$APP_TOKEN = "Pushover token";
+$USER_KEY = "Pushover key";
+>>>>>>> d992a412d3ca027e5e881e0661b927da67f8d6e0
 =======
 $APP_TOKEN = "Pushover token";
 $USER_KEY = "Pushover key";
