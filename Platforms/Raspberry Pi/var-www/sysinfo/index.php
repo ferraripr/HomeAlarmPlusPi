@@ -7,7 +7,8 @@ $freq = (exec("cat  /sys/devices/system/cpu/cpu0//cpufreq/scaling_cur_freq")) / 
 
 //get Temp
 $cputemp = (exec("cat /sys/class/thermal/thermal_zone0/temp "));
-$cputemp2 = $cputemp / 1000; 
+$cputemp2 = $cputemp / 1000;  //celcius
+$cputemp2 = round((1.8 * $cputemp2) + 32,1) ; //farenheit
 
 // Get Network-Data
 $RX = (exec("ifconfig eth0 | grep 'RX bytes'| cut -d: -f2 | cut -d' ' -f1"));
@@ -123,15 +124,12 @@ $count++;
 <meta name="HandheldFriendly" content="true" />
 <!--Mobile Optimization End-->
 <title>Raspberry Pi System Information</title>
-<style type="text/css">
-td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
-		font-size: 13;}
-</style>
+
 </head>
 <body bgcolor="#ffffff">
 <table>
-		<tr bgcolor="#6a91b1">
-			<td colspan="2"><center>General Info</center></td>
+		<tr class="mheader">
+			<td colspan="2" class="head center">Raspberry Pi - General Info</td>
 		</tr>
 		<tr>
 			<td width=110>Hostname</td>
@@ -159,7 +157,7 @@ td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
 		</tr>
 		<tr>
 			<td>CPU Temperature</td>
-			<td><?php echo $cputemp2 . " °C."; ?></td>
+			<td><?php echo $cputemp2 . " &#8457;"; ?></td>
 		</tr>
 		<tr>
 			<td>Uptime</td>
@@ -169,8 +167,8 @@ td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
 <br>
 <br>
 <table>
-		<tr bgcolor="#6a91b1">
-			<td colspan="4"><center>Memory: <?php echo $total_mem; ?></center></td>
+		<tr class="mheader">
+			<td colspan="4" class="head center">Memory: <?php echo $total_mem; ?></td>
 		</tr>
 		<tr>
 			<td width=110></td>
@@ -206,8 +204,8 @@ td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
 <br>
 <br>
 <table>
-		<tr bgcolor="#6a91b1">
-			<td colspan="4"><center>Swap: <?php echo $total_swap; ?></center></td>
+		<tr class="mheader">
+			<td colspan="4" class="head center">Swap: <?php echo $total_swap; ?></td>
 		</tr>
 		<tr>
 			<td width=110></td>

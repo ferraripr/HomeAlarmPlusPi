@@ -11,4 +11,9 @@ td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
 				font-weight:bold;
 				padding-top:3px;
 				padding-bottom:3px;
-			}	
+			}
+            tr.mheader
+                        {
+			    background-color:#6a91b1;
+            }						
+			

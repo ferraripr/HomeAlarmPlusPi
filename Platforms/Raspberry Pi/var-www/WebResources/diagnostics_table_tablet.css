@@ -1,0 +1,19 @@
+td { 	font-family: Yanone Kaffeesatz, Helvetica, sans-serif;
+		font-size: 13; }
+		
+			td.center
+			{
+				text-align:center;
+			}
+			td.head
+			{
+			    color:white;
+				font-weight:bold;
+				padding-top:3px;
+				padding-bottom:3px;
+			}
+            tr.mheader
+                        {
+			    background-color:#242424;		
+            }						
+			
