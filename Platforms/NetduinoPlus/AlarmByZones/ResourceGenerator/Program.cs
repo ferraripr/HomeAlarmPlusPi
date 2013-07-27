@@ -12,8 +12,9 @@ namespace ResourceGenerator
             Console.WriteLine("\nCreating HTML about");
             Console.WriteLine("-----------------");
             ResourceGenerator.Htm.About aboutHtml = new Htm.About();
-            aboutHtml.CreateAboutHtml();
-            aboutHtml.CreateAboutHtmlMobile();
+            //aboutHtml.CreateAboutHtml();
+            //aboutHtml.CreateAboutHtmlMobile();
+            aboutHtml.CreateAssyBuildDate();
         }
     }
 }

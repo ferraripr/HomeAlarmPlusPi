@@ -1,19 +1,28 @@
-
 <?php
 //USER PERSONAL SETTINGS
 $RASPBERRYPI1_PORT  = 8086;
 $NETDUINO_PLUS_PORT = 8085;
 
 //PUSHOVERSETTINGS
-$APP_TOKEN = "3RmkqUTnSRbW5675YnjeueBwETWd8f";
-$USER_KEY = "rXr8bNAfRCjWfeipV3uLAAsKJkEmDy";
+<<<<<<< HEAD
+<<<<<<< HEAD
+$APP_TOKEN = "Pushover Token";
+$USER_KEY = "Pushover User Key";
+=======
+$APP_TOKEN = "Pushover token";
+$USER_KEY = "Pushover key";
+>>>>>>> d992a412d3ca027e5e881e0661b927da67f8d6e0
+=======
+$APP_TOKEN = "Pushover token";
+$USER_KEY = "Pushover key";
+>>>>>>> d992a412d3ca027e5e881e0661b927da67f8d6e0
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="07/16/2013"/>
+        <meta name="mod-date" content="07/27/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
@@ -26,10 +35,9 @@ $USER_KEY = "rXr8bNAfRCjWfeipV3uLAAsKJkEmDy";
         <link rel="stylesheet" href="../WebResources/weather_table.css" />
 		
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<!-- bar icon is here!! -->
-		<link rel="stylesheet"  href="http://jquerymobile.com/demos/1.3.0-beta.1/css/themes/default/jquery.mobile-1.3.0-beta.1.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
 		
-		<link rel="stylesheet"  href="http://jquerymobile.com/demos/1.3.0-beta.1/docs/demos/_assets/css/jqm-demos.css">
+	<link rel="stylesheet"  href="http://jquerymobile.com/demos/1.3.0-beta.1/docs/demos/_assets/css/jqm-demos.css">
 		
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		
@@ -77,6 +85,7 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
         #navilink {
     	   -webkit-border-radius: 0.1em /*{global-radii-buttons}*/;
            border-radius: 0.1em /*{global-radii-buttons}*/;                   
+	   border-style: hidden;
         }
 	</style>
 		
@@ -88,11 +97,11 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
 
         <!-- Home -->
         <div data-role="page" id="main-page" data-theme="b" data-content-theme="b" class="jqm-demos">
-            <div data-theme="b" data-role="header" class="jqm-header" data-fullscreen="true">
+            <div data-theme="b" data-role="header" class="jqm-header" data-position="fixed" >
                 <h3>
                     HomeAlarmPlus Pi
                 </h3>
-                <a id="navilink" href="#nav-panel" data-theme="b"  data-icon="bars"    data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
+                <a id="navilink" href="#nav-panel" data-theme="b"   data-icon="bars" data-role="button" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
             </div>
         <div data-role="content">
             <div class="content-primary">
@@ -174,8 +183,8 @@ else
 						    <a href="diagnostics.php" rel="external" >Diagnostics</a>
 						</li>						
 						
-						<div data-role="collapsible-set" data-theme="a">
-						<div data-role="collapsible" data-iconpos="right" data-collapsed="true">
+						<div data-role="collapsible-set" data-corners="false" data-theme="a">
+						<div data-role="collapsible" data-collapsed-icon="arrow-d" and data-expanded-icon="arrow-u" data-iconpos="right" data-collapsed="true">
 						<h3>About</h3>
                                                 <ul data-role="listview" data-theme="a" data-divider-theme="a">
                                                     <li data-filtertext="About Home Alarm Plus">								
@@ -192,7 +201,7 @@ else
 		</div>
 				
         <div data-role="page" id="weather"  data-theme="b" data-content-theme="b" class="jqm-demos">
-            <div data-theme="b" data-role="header" class="jqm-header" data-fullscreen="true">
+            <div data-theme="b" data-role="header" class="jqm-header" data-position="fixed">
                 <h3>
                     Weather
                 </h3>
@@ -253,7 +262,7 @@ else
         </div><!-- /weather page -->
 			
         <div data-role="page" id="about-hapluspi" data-theme="b" data-content-theme="b" class="jqm-demos">
-            <div data-theme="b" data-role="header" >
+            <div data-theme="b" data-role="header" data-position="fixed" >
                 <h3>
                     About - HomeAlarmPlus Pi
                 </h3>
@@ -278,7 +287,7 @@ else
         </div><!-- /about raspberry pi page -->
 
         <div data-role="page" id="about-netduino" data-theme="b" data-content-theme="b" >
-            <div data-theme="b" data-role="header"  data-fullscreen="true">
+            <div data-theme="b" data-role="header"  data-position="fixed">
                 <h3>
                     About - HomeAlarmPlus
                 </h3>

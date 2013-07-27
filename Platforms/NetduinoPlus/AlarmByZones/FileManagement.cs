@@ -270,9 +270,10 @@ namespace AlarmByZones
         /// </summary>
         /// <see cref="http://msdn.microsoft.com/en-us/library/ee437065.aspx"/>
         /// <returns>file-system volume in HTML format</returns>
-        public string SDCardInfo()
+        public string SDCardInfo(bool mobile)
         {
-            string Info = "<li>SD Card not detected or installed.</li>";
+            string Info = !mobile ? "<li>SD Card not detected or installed.</li>" :
+                "<td width=110>SD Card Status</td><td width=268>SD Card not detected or installed.</td>";
             if (IsSDCardAvailable())
             {
                 VolumeInfo[] volumes = VolumeInfo.GetVolumes();
@@ -280,20 +281,29 @@ namespace AlarmByZones
                 {
                     double FreeSpace = vi.TotalFreeSpace / 1048576;
                     double TotalVolume = vi.TotalSize / 1048576;
-                    
 
-                    Info = "<br/><b>SD Card Status</b>" +
+
+                    Info = !mobile ? "<br/><b>SD Card Status</b>" +
                         "<li>Root Directory: " + vi.RootDirectory.ToString() + "</li>" +
                         "<li>Device Flags: " + vi.DeviceFlags.ToString() + "</li>" +
                         "<li>Attributes Read-only?: " + volumes.IsReadOnly.ToString() + "</li>" +
                         "<li>Total Volume: " + TotalVolume.ToString() + "MB</li>" +
-                        "<li>Total Free Space: " + FreeSpace.ToString() + "MB</li>";
+                        "<li>Total Free Space: " + FreeSpace.ToString() + "MB</li>" :
+                        "<td width=110>Root Directory</td><td width=268>" + vi.RootDirectory.ToString() + "</td>" +
+                        "</tr><tr>" +
+                        "<td>Device Flags</td><td>" + vi.DeviceFlags.ToString() + "</td>" +
+                        "<td><tr>" +
+                        "<td>Attributes Read-only?</td><td>" + volumes.IsReadOnly.ToString() + "</td>" +
+                        "<td><tr>" +
+                        "<td>Total Volume</td><td>" + TotalVolume.ToString() + "MB" + "</td>" +
+                        "<td><tr>" +
+                        "<td>Total Free Space</td><td>" + FreeSpace.ToString() + "MB" + "</td></tr>";
                 }
             }
             else
             {
-                Info = "<br/><b>SD Card Status</b>"+
-                    "<li>" + NO_SD_CARD + "</li>";
+                Info = !mobile ? "<br/><b>SD Card Status</b><li>" + NO_SD_CARD + "</li>" :
+                    "<td width=110>SD Card Status</td><td width=268>" + NO_SD_CARD + "</td>";
             }
             return Info;
         }

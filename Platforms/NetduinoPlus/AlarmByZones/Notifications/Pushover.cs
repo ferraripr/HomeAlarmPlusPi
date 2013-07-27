@@ -1,6 +1,7 @@
 ////
 //
-// General code from http://www.pushingbox.com for Netduino Plus v1.0
+// General code for http://www.pushover.com for Netduino Plus v1.0
+// API: https://pushover.net/api
 //
 ////
 
@@ -10,12 +11,12 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 
-namespace PushingBox
+namespace Notification
 {
-    public class Notification
+    public class Pushover
     {
         #region Constructor
-        private Notification()
+        private Pushover()
         {
 
         }
@@ -23,19 +24,29 @@ namespace PushingBox
 
         #region Declarations
 
-        //Your secret DevID from PushingBox.com. You can use multiple DevID  on multiple Pin if you want
-
-        const string serverName = "api.pushingbox.com";
+        const string serverName = "rpi.server.address";
+        const int serverPort = 8086;
 
         /// <summary>
         /// Carriage return and line feed.
         /// </summary>
         const string CRLF = "\r\n";
+
+        /// <summary>
+        /// Connection status
+        /// </summary>
+        public static bool bStatus = true;
         #endregion
 
         #region Methods
-        public static void Connect(string DeviceID)
-        {
+        /// <summary>
+        /// Connect to Pushover
+        /// </summary>
+        /// <param name="time">date time stamp</param>
+        /// <param name="title">Notification title</param>
+        /// <param name="message">Notification message</param>
+        public static void Connect(string time, string title, string message)
+        {            
             Socket connection = null;
 
             if (connection == null)
@@ -47,23 +58,25 @@ namespace PushingBox
                 catch(Exception ex)
                 {
                     Debug.Print("Connection Error.\nException: " + ex.Message);
+                    bStatus = false;
                 }
             }
             try
             {
-                sendToPushingBox(connection, DeviceID, "NetduinoPlus");
+                postToRaspberryPi(connection, time, title, message, "NetduinoPlus");
                 RecieveResponse(connection);
+                connection.Close();
+                connection = null;
             }
             catch (Exception ex)
             {
                 Debug.Print("Socket Exception: " + ex.Message);
+                bStatus = false;
             }
-            connection.Close();
-            connection = null;            
         }
 
         /// <summary>
-        /// Establishes connection to PushingBox's host.
+        /// Establishes connection to Pushover host.
         /// </summary>
         /// <param name="host">server name or IP address</param>
         /// <param name="timeout">timeout</param>
@@ -74,8 +87,8 @@ namespace PushingBox
             IPHostEntry hostEntry = Dns.GetHostEntry(host);
             // extract a returned address         
             IPAddress hostAddress = hostEntry.AddressList[0];
-            IPEndPoint remoteEndPoint = new IPEndPoint(hostAddress, 80);
-            Debug.Print("Attempting connection to PushingBox...");
+            IPEndPoint remoteEndPoint = new IPEndPoint(hostAddress, serverPort);
+            Debug.Print("Attempting connection to RaspberryPi...");
             var connection = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
             connection.Connect(remoteEndPoint);
@@ -86,26 +99,38 @@ namespace PushingBox
         }
 
         /// <summary>
-        /// Sends PushingBox request.
+        /// Post Pushover request.
         /// </summary>
         /// <param name="s">Socket server</param>
-        /// <param name="devId">PushingBox Device ID</param>
-        /// <param name="content">PushingBox status update.  Data encoded as simple HTTP from encoded variables.</param>
-        static void sendToPushingBox(Socket s, string devId, string content)
+        /// <param name="time">date time stamp</param>
+        /// <param name="title">Notification title</param>
+        /// <param name="message">Notification message</param>
+        /// <param name="content">Pushover status update.  Data encoded as simple HTTP from encoded variables.</param>
+        static void postToRaspberryPi(Socket s, string time, string title, string message, string content)
         {
             byte[] contentBuffer = Encoding.UTF8.GetBytes(content);
+            var requestLine =
+                "PUT /WebResources/alarmParse.php?alarm-description=" + message + 
+                "&title=" + title + 
+                "&Ntime=" + time +
+                " HTTP/1.1" + CRLF;
+
+            byte[] requestLineBuffer = Encoding.UTF8.GetBytes(requestLine);
             var headers =
-                "GET /pushingbox?devid=" + devId + " HTTP/1.1" + CRLF +
-                "Host: " + serverName + CRLF +
+                "Accept: */*" + CRLF +
+                "Host: rpi.server.address" + CRLF +
+                "X-PushoverApi: " + message + CRLF +
+                "Content-Type: text/csv" + CRLF +
                 "User-Agent: NetduinoPlus" + CRLF +
                 "Content-Length: " + contentBuffer.Length + CRLF + CRLF;
             byte[] headersBuffer = Encoding.UTF8.GetBytes(headers);
+            s.Send(requestLineBuffer);
             s.Send(headersBuffer);
             s.Send(contentBuffer);
         }
 
         /// <summary>
-        /// Receives PushingBox response.
+        /// Receives Pushover response.
         /// </summary>
         /// <param name="s">socket</param>
         static void RecieveResponse(Socket s)

@@ -189,6 +189,17 @@
  *   04-28-2013              27.5.0.0            G. García          Modified about and about-mobile to save memory.
  *   
  *   05-05-2013              27.6.0.0            G. García          Added jquery-ui to WebControlPanel.
+ *   
+ *   06-09-2013              27.7.0.0            G. García          Minor Web server HTML modification.
+ *                                                                  Change on LCD message when all zones are not compromissed.
+ *                                                                  Pushover implementation.
+ *                                                                                  
+ *   07-17-2013              27.7.0.0            G. García          CSS, jQuery mobile and jQuery UI modification on FileManagement
+ *                                                                   and WebControllerPanel.
+ *                                                                  Consolidated and deleted URL to increase memory.
+ *                                                                  Consolidated Resources.
+ *                                                                 
+ *   
  */
 
 using System;
@@ -335,6 +346,11 @@ namespace AlarmByZones
                                        };
 
         static SerialPort serialPort = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
+
+        /// <summary>
+        /// Delimiter for PHP $_GET
+        /// </summary>
+        const string POST_DELIMETER = "_";
         #endregion
 
         #region Delegates
@@ -368,7 +384,7 @@ namespace AlarmByZones
             Thread.Sleep(250);
 
             lcd.SetCursorPosition(column: 0, row: 1);
-            lcd.Write("HomeAlarmPlus");
+            lcd.Write("HomeAlarmPlus Pi");
             Thread.Sleep(1600);
             lcd.Clear();
             lcd.SetCursorPosition(column: 0, row: 0);
@@ -383,7 +399,7 @@ namespace AlarmByZones
 
             lcd.Clear();
             lcd.SetCursorPosition(column: 0, row: 0);
-            lcd.Write("HomeAlarmPlus");
+            lcd.Write("HomeAlarmPlus Pi");
 
             MonitorZonesDelegate monitorZones = new MonitorZonesDelegate(MonitorZones);
 
@@ -395,7 +411,7 @@ namespace AlarmByZones
             IPAddress = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0].IPAddress;
             Console.DEBUG_ACTIVITY(IPAddress);
             lcd.SetCursorPosition(column: 0, row: 1);
-            lcd.Write(IPAddress + "       ");
+            lcd.Write("IP: " + IPAddress + "       ");
             
             Thread.Sleep(1000);
             SdCardEventLogger.SDCardAccess();
@@ -406,24 +422,28 @@ namespace AlarmByZones
 
             new Thread(Alarm.WebServer.startHttp).Start();
 
-            //based on a post by Valkyrie-MT
-            //http://forums.netduino.com/index.php?/topic/475-still-learning-internet-way-to-grab-date-and-time-on-startup/
+            //Time from Raspberry Pi 
             Debug.Print("Setting Date and Time from Network");
             lcd.SetCursorPosition(column: 0, row: 1);
-            lcd.Write("Finding RPi-srvr");
-            //Rpi time notification
-            PushingBox.Notification.Connect("vPUSHINGBOX");
+            lcd.Write("Finding RPi-srvr");           
+            Notification.PushingBox.Connect("vPUSHINGBOX");
+
+            //Let's notify Pushover
+            //With extension.replace spaces are replaced with %20 so that is recognized by PHP when posting parameters.
+            Notification.Pushover.Connect("none", Extension.Replace("Netduino Plus Time set", " ", "%20"), Extension.Replace("Time set from Raspberry Pi", " ", "%20"));
             
             LastResetCycle = DateTime.Now.ToString("ddd, d MMM yyyy hh:mm:ss tt\r\n");
             dLastResetCycle = DateTime.Now;
 
             lcd.SetCursorPosition(column: 0, row: 1);
-            string status = Extension.status ? "RPi Time-srvr OK    " : "Restart needed   ";
+            string status = Notification.PushingBox.bStatus ? "RPi Time-srvr OK    " : "Network problems";
+            Debug.Print(status);
             lcd.Write(status);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             lcd.SetCursorPosition(column: 0, row: 1);
-            lcd.Write("READY           ");
+            lcd.Write("SYSTEM READY           ");
+            Debug.Print("ARMED!");
             Thread.Sleep(460);
             ATTINYx5.Write(true);
 
@@ -462,7 +482,8 @@ namespace AlarmByZones
                 float volts = ((float)vInput / 1024.0f) * 3.3f * 1000;
 #endif
 
-                string strZoneDescription = "N/A"; //If zone description is not found on SD Card N/A is default description.
+                string strZoneDescription = "N/A"; //If zone description is not found on SD Card, "N/A" is default description.
+                string strZonePost = strZoneDescription;
 
                 Console.DEBUG_ACTIVITY("Zone " + (i + 1).ToString() + ": Volts: " + volts);
 
@@ -481,6 +502,8 @@ namespace AlarmByZones
 
                 if (volts >= 3 )
                 {
+                    string time = DateTime.Now.ToString();
+                    string ttime = Extension.Replace(time, " ", "%20");
                     soundAlarmPin.Write(true);
                     lcd.Clear();
                     lcd.Write("  Zone " + (i + 1).ToString() +" Active");
@@ -493,21 +516,24 @@ namespace AlarmByZones
                      */
                     if (!detectedZones[i] || (detectedZones[i] && eMinutes >= Alarm.ConfigDefault.Data.EMAIL_FREQUENCY))
                     {
-                        PushingBox.Notification.Connect(ALARM_DEVIDS[i]);
+                        Notification.PushingBox.Connect(ALARM_DEVIDS[i]);
 
                         if (Alarm.Common.Alarm_Info.zoneDescription.Count>0)
                         {
                             if (Alarm.Common.Alarm_Info.zoneDescription.Contains("Zone" + (i + 1).ToString()))
                             {
                                 strZoneDescription = (string)Alarm.Common.Alarm_Info.zoneDescription["Zone" + (i + 1).ToString()];
+                                strZonePost = POST_DELIMETER + "Zone%20" + (i + 1).ToString() + "%20" + POST_DELIMETER + Extension.Replace(strZoneDescription, " ", "%20");
                             }
                         }
                         string info = "Zone " + (i + 1).ToString() + " " + strZoneDescription;
                         swZones[i] = Stopwatch.StartNew();
                         detectedZones[i] = true;
                         //email.SendEmail("Alarm Trigger!", info + "\nIP Address: " + IPAddress);
+                        //send notification
+                        Notification.Pushover.Connect(ttime, "Alarm%20Trigger", strZonePost);
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<tr>");
-                        Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center>" + DateTime.Now.ToString() + "</center></td> ");
+                        Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center>" + time + "</center></td> ");
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center> Zone " + (i + 1).ToString() + "</center></td>");
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center>" + strZoneDescription + "</center></td>");
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("</tr>");
@@ -541,8 +567,9 @@ namespace AlarmByZones
                     {
                         soundAlarmPin.Write(false);
                         sendToXBee("0");
+                        lcd.Write("  All Zones OK");
                     }                    
-                    lcd.Write("   Zone " + (i + 1).ToString() + " OK");
+                    //lcd.Write("   Zone " + (i + 1).ToString() + " OK");
                 }
                 Thread.Sleep(210);
                 lcd.Clear();
