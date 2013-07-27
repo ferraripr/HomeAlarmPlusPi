@@ -1,12 +1,11 @@
-
 <?php
 //USER PERSONAL SETTINGS
 $RASPBERRYPI1_PORT  = 8086;
 $NETDUINO_PLUS_PORT = 8085;
 
 //PUSHOVERSETTINGS
-$APP_TOKEN = "3RmkqUTnSRbW5675YnjeueBwETWd8f";
-$USER_KEY = "rXr8bNAfRCjWfeipV3uLAAsKJkEmDy";
+$APP_TOKEN = "Pushover token";
+$USER_KEY = "Pushover key";
 ?>
 <!DOCTYPE html>
 <html>
