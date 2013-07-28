@@ -39,7 +39,7 @@
  * 
  * OPTIONAL (If mounting Netduino inside the Alarm Panel):
  * - USB Ruggedized / Waterproof Panel Connector - for external access to USB port.
- * - Panel Mount LED (Subminiature Green LED Assemply) - external LED mounted on panel.
+ * - Panel Mount LED (Subminiature Green LED Assembly) - external LED mounted on panel.
  * - USB 2.0 Cable, Type A Male to A Male (10 Feet) - To interface between alarm panel and computer.
  * 
  * 
@@ -57,7 +57,7 @@
  *                                                                  Modified base implementation with new variables, method (DEBUG_ACTIVITY) 
  *                                                                  and comments.
  *                                                                  
- *   03-30-2012              5.0.0.0             G. García          New Config.ini file with zone and sensor description; and Http webserver port number.
+ *   03-30-2012              5.0.0.0             G. García          New Config.ini file with zone and sensor description; and Http web server port number.
  *   
  *   04-02-2012              6.0.0.0             G. García          Added email frequency settings to the Config.ini file.
  *                                                                  Added new URL for opening SD Card file with latest Exception or event. 
@@ -160,17 +160,17 @@
  *                                                                  
  *   02-22-2013              26.3.0.0            G. García          Initial implementation of soft reset commanded from web server.
  *   
- *   03-01-2013              26.4.0.0            G. García          Fixed error when opening a file from webserver.
+ *   03-01-2013              26.4.0.0            G. García          Fixed error when opening a file from web server.
  *                                                                  Added method on FileManagement.cs to save Logs and Exceptions on 
- *                                                                    SD Card.  This implementation differ from previus one since everything
+ *                                                                    SD Card.  This implementation differ from previous one since everything
  *                                                                    is stored in one file but different location.  No need to create a file
  *                                                                    per Log and Exception events.
  *                                                                    
  *   03-09-2013              26.5.0.0            G. García          Added RF Receiver (Toggle Type) to arm or disarm alarm.
  *                                                                  Deleted unused reference Microsoft.SPOT.Graphics.
  *                                                                  
- *   03-10-2013              27.0.0.0            G. García          From now on the following versions are going to rely more on a webserver.
- *                                                                  CSS linked from webserver instead on being loaded on every process request.
+ *   03-10-2013              27.0.0.0            G. García          From now on the following versions are going to rely more on a web server.
+ *                                                                  CSS linked from web server instead on being loaded on every process request.
  *                                                                  Code cleanup.
  *                                                                  Using Raspberry Pi to set the Netduino's Local Time.
  *                                                                  
@@ -184,14 +184,14 @@
  *   04-21-2013              27.3.0.0            G. García          Another modification on DateTime format.
  *                                                                  More code cleanup.
  *                                                                  
- *   04-21-2013              27.4.0.0            G. García          Added total uptime on dignostics web server option.
+ *   04-21-2013              27.4.0.0            G. García          Added total uptime on diagnostics web server option.
  *   
  *   04-28-2013              27.5.0.0            G. García          Modified about and about-mobile to save memory.
  *   
  *   05-05-2013              27.6.0.0            G. García          Added jquery-ui to WebControlPanel.
  *   
  *   06-09-2013              27.7.0.0            G. García          Minor Web server HTML modification.
- *                                                                  Change on LCD message when all zones are not compromissed.
+ *                                                                  Change on LCD message when all zones are not compromised.
  *                                                                  Pushover implementation.
  *                                                                                  
  *   07-17-2013              27.7.0.0            G. García          CSS, jQuery mobile and jQuery UI modification on FileManagement
@@ -199,6 +199,8 @@
  *                                                                  Consolidated and deleted URL to increase memory.
  *                                                                  Consolidated Resources.
  *                                                                 
+ *   07-20-2013              27.7.1.0            G. García          Added temperature sensor TMP38 to monitor the alarm panel's temperature.
+ *                                                                  Modified CSS and jQuery mobile in WebControlPanel and ResourceGenerator.
  *   
  */
 
@@ -263,7 +265,12 @@ namespace AlarmByZones
         /// </summary>
         static Microsoft.SPOT.Hardware.OutputPort[] MotionLeds = {
                                                                      new Microsoft.SPOT.Hardware.OutputPort(Pins.GPIO_PIN_D6, false)
-                                                                 };
+		                                                         };
+
+        /// <summary>
+        /// Temperature sensor
+        /// </summary>
+        public static Microsoft.SPOT.Hardware.AnalogInput tempSensor = new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A5);
 
         /// <summary>
         /// Gets the total elapsed time measured by the current instance of each alarm zone.

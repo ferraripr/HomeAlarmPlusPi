@@ -106,11 +106,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Notifications\Pushover.cs" />
-    <Compile Include="Notifications\PushingBox.cs" />    
-    <Compile Include="PushingBox\PushingBox.cs" />
-    <Compile Include="SMTPClient.cs" />
+    <Compile Include="Notifications\PushingBox.cs" />
+    <Compile Include="Sensor\TMP136.cs" />
     <Compile Include="System.Diagnostics.Stopwatch.cs" />
     <Compile Include="WebControlPanel.cs" />
+    <Compile Include="SMTPClient.cs" />    
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />

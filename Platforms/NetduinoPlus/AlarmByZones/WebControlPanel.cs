@@ -5,7 +5,6 @@ using Microsoft.SPOT.Hardware;
 using SecretLabs.NETMF.Hardware;
 using System.Text;
 
-
 namespace AlarmByZones
 {
 	public class WebControlPanel : MFToolkit.Net.Web.IHttpHandler
@@ -400,7 +399,6 @@ namespace AlarmByZones
 					context.Response.WriteLine("<meta name='apple-mobile-web-app-capable' content='yes' />");
 					context.Response.WriteLine("<meta name='apple-mobile-web-app-status-bar-style' content='black' />");
 					context.Response.WriteLine(jquery_ui_script);
-                    context.Response.WriteLine("<link rel='stylesheet' type='text/css' href='" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css'></style>");
 					context.Response.WriteLine("</head><body>");
 					context.Response.WriteLine("<div class='ui-widget'>\n");
 					context.Response.WriteLine("<div class='ui-widget-header ui-corner-top'>\n");
@@ -439,7 +437,7 @@ namespace AlarmByZones
 					context.Response.WriteLine("<meta name='apple-mobile-web-app-status-bar-style' content='black' />");
                     context.Response.WriteLine("</head><body>");
                     context.Response.WriteLine("<table>");
-                    context.Response.WriteLine("<tr bgcolor='#6a91b1'>");
+                    context.Response.WriteLine("<tr class='mheader'>");
                     context.Response.WriteLine("<td colspan='2' class='head center'>Netduino Plus - General Info</td>");
                     context.Response.WriteLine("</tr><tr>");
                     context.Response.WriteLine("<td width=110>System Time</td>");
@@ -447,9 +445,11 @@ namespace AlarmByZones
                     context.Response.WriteLine("</tr><tr>");
                     context.Response.WriteLine("<td>Status</td>");
                     context.Response.WriteLine("<td>" + "<font face='verdana' color='green'>Alarm System is up and running!</font>" +"</td>");
+                    context.Response.WriteLine("</tr><tr>");
+                    context.Response.WriteLine("<td>Netduino Temperature</td><td>" + Sensor.TMP136.GetTemperature(false, AlarmByZones.tempSensor) + "</td>");
                     context.Response.WriteLine("</table><br>");
                     context.Response.WriteLine("<table>");
-                    context.Response.WriteLine("<tr bgcolor='#6a91b1'>");
+                    context.Response.WriteLine("<tr class='mheader'>");
                     context.Response.WriteLine("<td colspan='2' class='head center'>Power Cycle</td>");
                     context.Response.WriteLine("</tr><tr>");
                     context.Response.WriteLine("<td width=110>Last reset</td><td width=268>" + AlarmByZones.LastResetCycle + "</td>");
@@ -457,13 +457,13 @@ namespace AlarmByZones
                     context.Response.WriteLine("<td>Uptime</td><td>" + strUptime + "</td>");
                     context.Response.WriteLine("</tr></table><br>");
                     context.Response.WriteLine("<table>");
-                    context.Response.WriteLine("<tr bgcolor='#6a91b1'>");
+                    context.Response.WriteLine("<tr class='mheader'>");
                     context.Response.WriteLine("<td colspan='2' class='head center'>Memory</td>");
                     context.Response.WriteLine("</tr><tr>");
                     context.Response.WriteLine("<td width=110>Available Memory</td><td width=268>" + Debug.GC(true) + "</td>");
                     context.Response.WriteLine("</tr></table><br>");
                     context.Response.WriteLine("<table>");
-                    context.Response.WriteLine("<tr bgcolor='#6a91b1'>");
+                    context.Response.WriteLine("<tr class='mheader'>");
                     context.Response.WriteLine("<td colspan='2' class='head center'>SD Card Status</td>");
                     context.Response.WriteLine("</tr><tr>");
 

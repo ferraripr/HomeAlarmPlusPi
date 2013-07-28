@@ -207,11 +207,11 @@ namespace ResourceGenerator.Htm
                 "<!DOCTYPE HTML>\n" +
                 "<html>\n" +
                 "	<head>\n" +
-                "       <meta name=\"mod-date\" content=\"07/14/2013\"/>\n" +
+                "       <meta name=\"mod-date\" content=\"07/28/2013\"/>\n" +
                 "	</head>" +
                 "	<body>" +
                 "<table>" +
-                "<tr bgcolor='#6a91b1'>" +
+                "<tr class='mheader'>" +
                 "<td colspan='2' class='head center'>AssemblyInfo</td>\n" +
                 "</tr><tr>\n" +
                 "<td width=110>Version</td><td width=268>" + versionNumber + "</td>\n" +
