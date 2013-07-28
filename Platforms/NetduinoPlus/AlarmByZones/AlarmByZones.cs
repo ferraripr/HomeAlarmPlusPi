@@ -200,8 +200,8 @@
  *                                                                  Consolidated Resources.
  *                                                                 
  *   07-20-2013              27.7.1.0            G. García          Added temperature sensor TMP38 to monitor the alarm panel's temperature.
- *                                                                  Modified CSS and jQuery mobile in WebControlPanel and ResourceGenerator.
- *   
+ *   07-28-2013                                                     Modified CSS and jQuery mobile in WebControlPanel and ResourceGenerator.
+ *     
  */
 
 using System;
