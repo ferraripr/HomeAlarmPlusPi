@@ -8,10 +8,10 @@ using SecretLabs.NETMF.Hardware.NetduinoPlus;
 
 namespace Sensor
 {
-    public class TMP136
+    public class TMP36
     {
         static int SAMPLES = 10;
-        public TMP136()
+        public TMP36()
         {
 
         }

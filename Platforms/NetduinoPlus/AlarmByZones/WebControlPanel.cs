@@ -446,7 +446,7 @@ namespace AlarmByZones
                     context.Response.WriteLine("<td>Status</td>");
                     context.Response.WriteLine("<td>" + "<font face='verdana' color='green'>Alarm System is up and running!</font>" +"</td>");
                     context.Response.WriteLine("</tr><tr>");
-                    context.Response.WriteLine("<td>Netduino Temperature</td><td>" + Sensor.TMP136.GetTemperature(false, AlarmByZones.tempSensor) + "</td>");
+                    context.Response.WriteLine("<td>Netduino Temperature</td><td>" + Sensor.TMP36.GetTemperature(false, AlarmByZones.tempSensor) + "</td>");
                     context.Response.WriteLine("</table><br>");
                     context.Response.WriteLine("<table>");
                     context.Response.WriteLine("<tr class='mheader'>");

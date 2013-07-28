@@ -107,7 +107,7 @@
     </Compile>
     <Compile Include="Notifications\Pushover.cs" />
     <Compile Include="Notifications\PushingBox.cs" />
-    <Compile Include="Sensor\TMP136.cs" />
+    <Compile Include="Sensor\TMP36.cs" />
     <Compile Include="System.Diagnostics.Stopwatch.cs" />
     <Compile Include="WebControlPanel.cs" />
     <Compile Include="SMTPClient.cs" />    
