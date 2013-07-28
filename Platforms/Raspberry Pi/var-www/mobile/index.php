@@ -12,7 +12,7 @@ $USER_KEY  = "Your Pushover User Key";
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="07/27/2013"/>
+        <meta name="mod-date" content="07/28/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
@@ -73,9 +73,14 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
 </script>
 	<style>
         #navilink {
-    	   -webkit-border-radius: 0.1em /*{global-radii-buttons}*/;
-           border-radius: 0.1em /*{global-radii-buttons}*/;                   
-	   border-style: hidden;
+    	   -webkit-border-radius: 0.1em /*{radii-buttons}*/;
+           border-style: hidden;
+           height:35px;
+           width:35px;
+           top:4px;
+           position:absolute;
+           background:transparent url(http://happi.homedns.org:3003/images/nav_icon_left.png?v=1) no-repeat 0 0;
+           left:8px;
         }
 	</style>
 		
@@ -91,7 +96,7 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
                 <h3>
                     HomeAlarmPlus Pi
                 </h3>
-                <a id="navilink" href="#nav-panel" data-theme="b"   data-icon="bars" data-role="button" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
+                <a id="navilink" href="#nav-panel" data-theme="b"  data-role="button" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc" >Menu</a>
             </div>
         <div data-role="content">
             <div class="content-primary">
