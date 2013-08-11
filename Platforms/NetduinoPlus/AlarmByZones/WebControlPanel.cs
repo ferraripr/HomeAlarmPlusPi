@@ -91,7 +91,9 @@ namespace AlarmByZones
 					//AlarmByZones.email.SendEmail("Web Server access", "Home web server access.\nAssemblyInfo: " + System.Reflection.Assembly.GetExecutingAssembly().FullName);
                     //PushingBox Web server access notification
                     PushingBox.Notification.Connect("vPUSHINGBOX");
-                    Notification.Pushover.Connect("none", "Netduino%20Plus%20Web%20Trigger", "Web%20Server%20Access%20from%20Netduino%20Plus");
+                    string time = DateTime.Now.ToString();
+                    string ttime = Extension.Replace(time, " ", "%20");
+                    Notification.Pushover.Connect(ttime, "Netduino%20Plus%20Web%20Trigger", "Web%20Server%20Access%20from%20Netduino%20Plus", false);
 					Console.DEBUG_ACTIVITY(Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0].IPAddress);
 					string HTML_tbHeader = "<table class='gridtable'><tr><th><center>Time</center></th><th><center>Zone/Sensor</center></th><th><center>Description</center></th></tr>";
 					string AlarmStatus = Alarm.Common.Alarm_Info.sbActivity.Length == 0 ? "No Alarms/Sensors " : HTML_tbHeader + Alarm.Common.Alarm_Info.sbActivity.ToString();
@@ -475,7 +477,9 @@ namespace AlarmByZones
 				case "/re":
 				case "/rst":
 					Notification.PushingBox.Connect("vB0DE681C4EAE2A8");
-                    Notification.Pushover.Connect("none", "Netduino%20Plus%20Web%20Trigger", "Netduino%20Plus%20executing%20Reset%20");
+                    time = DateTime.Now.ToString();
+                    ttime = Extension.Replace(time, " ", "%20");
+                    Notification.Pushover.Connect(ttime, "Netduino%20Plus%20Web%20Trigger", "Netduino%20Plus%20executing%20Reset%20", false);
 					Microsoft.SPOT.Hardware.PowerState.RebootDevice(false); //true = Hard reboot
 					rawURL_string = null;
 					break;

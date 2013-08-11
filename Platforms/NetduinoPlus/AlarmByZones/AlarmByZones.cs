@@ -202,6 +202,8 @@
  *   07-20-2013              27.7.1.0            G. García          Added temperature sensor TMP36 to monitor the alarm panel's temperature.
  *   07-28-2013                                                     Modified CSS and jQuery mobile in WebControlPanel and ResourceGenerator.
  *     
+ *   08-09-2013              27.8.0.0            G. García          Changed temperature reading sample number.
+ *                                                                  Modified logic when using Pushover notification for alarm or system logs.
  */
 
 using System;
@@ -437,7 +439,9 @@ namespace AlarmByZones
 
             //Let's notify Pushover
             //With extension.replace spaces are replaced with %20 so that is recognized by PHP when posting parameters.
-            Notification.Pushover.Connect("none", Extension.Replace("Netduino Plus Time set", " ", "%20"), Extension.Replace("Time set from Raspberry Pi", " ", "%20"));
+            string time = DateTime.Now.ToString();
+            string ttime = Extension.Replace(time, " ", "%20");
+            Notification.Pushover.Connect(ttime, Extension.Replace("Netduino Plus Time set", " ", "%20"), Extension.Replace("Time set from Raspberry Pi", " ", "%20"), false);
             
             LastResetCycle = DateTime.Now.ToString("ddd, d MMM yyyy hh:mm:ss tt\r\n");
             dLastResetCycle = DateTime.Now;
@@ -538,7 +542,7 @@ namespace AlarmByZones
                         detectedZones[i] = true;
                         //email.SendEmail("Alarm Trigger!", info + "\nIP Address: " + IPAddress);
                         //send notification
-                        Notification.Pushover.Connect(ttime, "Alarm%20Trigger", strZonePost);
+                        Notification.Pushover.Connect(ttime, "Alarm%20Trigger", strZonePost, true);
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<tr>");
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center>" + time + "</center></td> ");
                         Alarm.Common.Alarm_Info.sbActivity.AppendLine("<td><center> Zone " + (i + 1).ToString() + "</center></td>");

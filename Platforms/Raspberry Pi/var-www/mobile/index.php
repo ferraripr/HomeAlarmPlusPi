@@ -12,7 +12,7 @@ $USER_KEY  = "Your Pushover User Key";
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="07/28/2013"/>
+        <meta name="mod-date" content="08/10/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
@@ -79,7 +79,7 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
            width:35px;
            top:4px;
            position:absolute;
-           background:transparent url(http://happi.homedns.org:3003/images/nav_icon_left.png?v=1) no-repeat 0 0;
+           background:transparent url(../images/nav_icon_left.png?v=1) no-repeat 0 0;
            left:8px;
         }
 	</style>
@@ -147,7 +147,6 @@ else
         <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		    <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
 	    </div>
-		
 			<style>
 				.nav-search .ui-btn-up-a {
 					background-image:none;
@@ -157,10 +156,13 @@ else
 					border-top: 1px solid #888;
 					border-color: rgba(255, 255, 255, .1);
 				}
-            </style>
+				.nav-search .ui-btn-active {
+                                        border: 1px solid #000000 /*{a-bdown-border}*/;
+				}
+                        </style>
 
 				<div data-role="panel" data-position="left"  data-display="reveal" data-dismissible="true" id="nav-panel" data-theme="a">
-					<ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search">
+					<ul data-role="listview" data-theme="a" data-divider-theme="a" style="margin-top:-16px;" class="nav-search" >
 					    <li data-role="list-divider">Main Menu</li>
 						<li data-icon="delete" style="background-color:#111;">
 						    <a href="#" data-rel="close">Close menu</a>
@@ -179,7 +181,7 @@ else
 						</li>						
 						
 						<div data-role="collapsible-set" data-corners="false" data-theme="a">
-						<div data-role="collapsible" data-collapsed-icon="arrow-d" and data-expanded-icon="arrow-u" data-iconpos="right" data-collapsed="true">
+						<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-collapsed="true">
 						<h3>About</h3>
                                                 <ul data-role="listview" data-theme="a" data-divider-theme="a">
                                                     <li data-filtertext="About Home Alarm Plus">								
@@ -190,10 +192,10 @@ else
                                                     </li>
                                                 </ul>
 						</div>
-					</ul>
-				</div><!-- /panel -->
-        </div><!-- /main-page -->
-		</div>
+					</ul><!-- menu listview-->
+						</div><!-- about listview -->
+				</div><!-- panel -->
+		</div><!-- main-page -->
 				
         <div data-role="page" id="weather"  data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" class="jqm-header" data-position="fixed">
@@ -307,7 +309,7 @@ else
 						  </li>
                           <br>
                         </ul>
-						<?php						   
+			<?php						   
                            try {
                                 $link2 = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/assy";
                                 $netduino_file = file_get_contents($link2);
@@ -316,8 +318,8 @@ else
                            catch (Exception $e) {
                                 echo 'Page not available this time!';
                            }
-						?>
-				    </div>
+			?>
+			   </div>
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>

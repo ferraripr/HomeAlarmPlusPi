@@ -6,6 +6,22 @@ $link = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/date-tim
 exec('curl \'. $link .'\'');
 if(file_exists('../data/alerts.json'))
 {
+  echo '   attempting to delete alerts.json';
   unlink('../data/alerts.json');
 }
+else
+{
+  echo '   alerts.json does not exist!';
+}
+
+if(file_exists('../data/system-logs.json'))
+{
+  echo '   attempting to delete alerts.json';
+  unlink('../data/system-logs.json');
+}
+else
+{
+  echo '   system-logs.json does not exist!';
+}
+
 ?>

@@ -45,7 +45,8 @@ namespace Notification
         /// <param name="time">date time stamp</param>
         /// <param name="title">Notification title</param>
         /// <param name="message">Notification message</param>
-        public static void Connect(string time, string title, string message)
+        /// <param name="alarm">True if alarm</param>
+        public static void Connect(string time, string title, string message, bool alarm)
         {            
             Socket connection = null;
 
@@ -63,7 +64,7 @@ namespace Notification
             }
             try
             {
-                postToRaspberryPi(connection, time, title, message, "NetduinoPlus");
+                postToRaspberryPi(connection, time, title, message, "NetduinoPlus", alarm);
                 RecieveResponse(connection);
                 connection.Close();
                 connection = null;
@@ -106,13 +107,15 @@ namespace Notification
         /// <param name="title">Notification title</param>
         /// <param name="message">Notification message</param>
         /// <param name="content">Pushover status update.  Data encoded as simple HTTP from encoded variables.</param>
-        static void postToRaspberryPi(Socket s, string time, string title, string message, string content)
+        /// <param name="alarm">True if alarm</param>
+        static void postToRaspberryPi(Socket s, string time, string title, string message, string content, bool alarm)
         {
             byte[] contentBuffer = Encoding.UTF8.GetBytes(content);
             var requestLine =
                 "PUT /WebResources/alarmParse.php?alarm-description=" + message + 
                 "&title=" + title + 
                 "&Ntime=" + time +
+                "&Alarm=" + alarm.ToString().ToLower() +
                 " HTTP/1.1" + CRLF;
 
             byte[] requestLineBuffer = Encoding.UTF8.GetBytes(requestLine);

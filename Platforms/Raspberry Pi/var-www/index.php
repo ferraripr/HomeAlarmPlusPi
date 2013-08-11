@@ -13,8 +13,13 @@ $USER_KEY  = "Your Pushover User Key";
 
 
 //DEBUG SETTINGS
-$PHP_DEBUG = 0;
-$MOBILE = "0";
+$PHP_DEBUG  = 0;
+$MOBILE     = 0;
+$FILE_DEBUG = 0;
+
+//Logs
+$ALARM_LOGS;
+$SYSTEM_LOGS;
   
 /*Time Display the Linux way*/
 //$current_time = exec("date +'%d %b %Y %r %Z'");
@@ -38,8 +43,68 @@ if (isset($_GET['main-page']))
   exec('curl \'http://api.pushingbox.com/pushingbox?devid='.$PushingBoxDeviceID.'\'');
   
   //send notification to Pushover
-  exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi."   -F "title=Alarm Trigger"   https://api.pushover.net/1/messages.json');
-  
+  exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi."   -F "title=Web Trigger"   https://api.pushover.net/1/messages.json');
+
+  //alarm logs path
+  $filename = "data/alerts.json";
+    
+  $fp = fopen($filename, 'r'); 
+  $array = explode("\n", fread($fp, filesize($filename)));
+
+if ($fp) 
+{
+   $ALERT_COUNT = count($array) -1;
+   if($FILE_DEBUG)
+   {
+      echo $ALERT_COUNT;
+	  echo $filename;
+   }
+   if ($ALERT_COUNT >0)
+   {
+      // Add each line to an array
+      for($i=0;$i<$ALERT_COUNT;++$i)
+      {
+         $json= $array[$i];
+         $obj = json_decode($json);
+		 $ALARM_LOGS = $ALARM_LOGS . "<td><center>" . $obj->{'time'} . "</center></td>" . "<td><center>" . $obj->{'zone'} . "</center></td>" . "<td><center>" . $obj->{'description'} . "</center></td>" ."</tr>";
+      }
+   }
+}
+else
+{
+  $ALARM_LOGS = "<tr><td></td><td><center>No Alarms/Sensors to report</center></td><td></td></tr>";
+}  
+
+  //system logs path
+  $filename = "data/system-logs.json";
+    
+  $fp = fopen($filename, 'r'); 
+  $array = explode("\n", fread($fp, filesize($filename)));
+
+if ($fp) 
+{
+   $LOGS_COUNT = count($array) -1;
+   if($FILE_DEBUG)
+   {
+      echo $LOGS_COUNT;
+	  echo $filename;
+   }
+   if ($LOGS_COUNT >0)
+   {
+      // Add each line to an array
+      for($i=0;$i<$LOGS_COUNT;++$i)
+      {
+         $json= $array[$i];
+         $obj = json_decode($json);
+		 $SYSTEM_LOGS = $SYSTEM_LOGS . "<td><center>" . $obj->{'time'} . "</center></td>" . "<td><center>" . $obj->{'description'} . "</center></td>" ."</tr>";
+      }
+   }
+}
+else
+{
+  $SYSTEM_LOGS = "<tr><td></td><td><center>No System logs to report</center></td></tr>";
+}
+ 
   print <<< EOT
 <!doctype html>
 <html lang="en">
@@ -57,14 +122,14 @@ if (isset($_GET['main-page']))
   </script>
   
   <style>
-  .ui-menu { width: 180px; position:relative; left:10px;}
+  .ui-menu { width: 180px; position:relative; left:2px;}
   </style>
   
 <head>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="07/10/2013"/>
+<meta name="mod-date" content="08/09/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <?php if ($MOBILE ==1) : ?>
@@ -77,7 +142,7 @@ if (isset($_GET['main-page']))
 <?php endif; ?>
 
 <!--jQuery, linked from a CDN-->
-<script src="http://code.jquery.com/jquery-1.9.1.js"/></script>
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"/></script>
 <!--jQueryUI Theme -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" />
@@ -87,17 +152,15 @@ if (isset($_GET['main-page']))
 <title>RASPBERRY PI Control Panel - Home</title>
 </head>
 <body>
-        <div class="ui-widget">
-        <div class="ui-widget-header ui-corner-top">
+        <div id="container" class="ui-widget" >
+		<!-- style="text-align:center;" -->
+        <div id="header" class="ui-widget-header ui-corner-top">
         <h2>HomeAlarmPlus Pi</h2>
-		</div>
-        <div class="ui-widget-content ui-corner-bottom">		
-        <p>System Time: <b>{$current_time}</b></p>
-        <p id="c_location">Location: </p>
-        <p id="c_current_forecast">Forecast: </p>
-	<br/>
-
-<ul id="menu">
+		</div>		
+<div id="menu" style="height:445px;width:235px;float:left;">	
+<b><center>Menu</center></b>
+<div style="border-bottom:1px;"></div>
+<div style="border-bottom:1px;"></div>
   <li><a href="http://{$_SERVER['SERVER_NAME']}:{$NETDUINO_PLUS_PORT}" target="_blank">Alarm Panel [Netduino Plus]</a></li>
   <div style="border-bottom:1px;"></div>
   <li><a href="/weather.html" target="_blank">Weather</a></li>
@@ -133,21 +196,57 @@ if (isset($_GET['main-page']))
       <li><a href="/sysinfo_v2/index.php" target="_blank">System Info v2</a></li>
     </ul>
   </li>
-</ul>
-
-        <br/>
+  <div style="border-bottom:1px;"></div>
+<!-- menu -->
+<br>
+<center>
         <table class="gridtable" border="1" width="20%">
                 <tr>
                    <td id="c_current_conditions"><center>Currently</center><br/></td>
 		   <td id="c_temperature"><center>Temperature</center></td>
                 </tr> 
         </table>
-<br/><br/><br/><br/><br/><br/><br/>
-<div style="border:1px solid #CCCCCC;">
+</center>		
+				
+</div>
+				
+        <div id="content" style="background-color:#EEEEEE;padding:10px 0 0 250px;" class="ui-widget-content ui-corner-bottom" >		
+        <p>System Time: <b>{$current_time}</b></p>
+        <p id="c_location">Location: </p>
+        <p id="c_current_forecast">Forecast: </p>
+<!--
+<?php if ($PHP_DEBUG == 1) { ?>
+		<p>DEBUG: Value of Mobile is :{$MOBILE}</p>
+		<p>DEBUG: cURL status: {$CURL_STATUS}</p>
+<?php } ?>
+        <br/>
+-->
+            <br>
+			<b>Alarm Logs:</b>
+			
+            <table class="gridtable">
+            <tr><th><center>Time</center></th><th><center>Zone/Sensor</center></th><th><center>Description</center></th></tr>
+			{$ALARM_LOGS}
+			</table>
+
+            <br>
+			<b>System Logs:</b>
+			
+            <table class="gridtable">
+            <tr><th><center>Time</center></th><th><center>Description</center></th></tr>
+			{$SYSTEM_LOGS}
+			</table>			
+
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+</div><!-- container -->
+
+<div id="footer" style="border:1px solid #CCCCCC;">
 <p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>
-</div>
-</div>
-</div>
+</div><!-- footer    -->
+
+</div><!-- page      -->
 
 </body></html>
 EOT;

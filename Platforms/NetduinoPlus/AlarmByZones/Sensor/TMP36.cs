@@ -10,7 +10,7 @@ namespace Sensor
 {
     public class TMP36
     {
-        static int SAMPLES = 10;
+        static int SAMPLES = 30;
         public TMP36()
         {
 

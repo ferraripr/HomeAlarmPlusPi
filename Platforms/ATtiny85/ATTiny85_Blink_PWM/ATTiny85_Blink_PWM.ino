@@ -4,7 +4,12 @@
   
   Source from: http://www.kobakant.at/DIY/?p=3393
  */
-#include <Arduino.h>
+#if ARDUINO >= 100
+ #include "Arduino.h"
+#else
+ #include "WProgram.h"
+#endif
+
 #include <wiring.h>
  
 //#define fadeSpeed 20

@@ -4,6 +4,7 @@ HomeAlarmPlus Pi
 Introduction
 ------------
 An open source home alarm monitoring system using Raspberry Pi, Netduino Plus 1 and ATtiny85.
+
 ![Alarm Circuitry](https://raw.github.com/ferraripr/HomeAlarmPlusPi/master/Documentation/AlarmCircuitry.jpg)
 
 Warning
