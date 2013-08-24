@@ -14,7 +14,7 @@ $EVENT_TIME = "";
   date_default_timezone_set('America/New_York');
   $current_time = strtoupper(date('d M Y h:i:s a T'));
   
-  //format expected on web address: http://raspberrypi/WebResources/alarmParse.php?alarm-description=this%20is%20a%20test&title=This%20is%20a%20title
+  //format expected on web address: http://raspberrypi/WebResources/processEvents.php?alarm-description=this%20is%20a%20test&title=This%20is%20a%20title
   if (isset($_GET['title']))
   {
     $EVENT_TITLE = $_GET["title"];  
