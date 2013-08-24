@@ -112,7 +112,7 @@ namespace Notification
         {
             byte[] contentBuffer = Encoding.UTF8.GetBytes(content);
             var requestLine =
-                "PUT /WebResources/alarmParse.php?alarm-description=" + message + 
+                "PUT /WebResources/processEvents.php?alarm-description=" + message + 
                 "&title=" + title + 
                 "&Ntime=" + time +
                 "&Alarm=" + alarm.ToString().ToLower() +

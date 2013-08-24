@@ -204,6 +204,11 @@
  *     
  *   08-09-2013              27.8.0.0            G. García          Changed temperature reading sample number.
  *                                                                  Modified logic when using Pushover notification for alarm or system logs.
+ *                                                                  
+ *   08-11-2013              27.8.1.0            G. García          Changed uptime display logic.
+ *   
+ *   08-24-2013              27.8.2.0            G. García          Renamed on RPi and replaced in Netduino Plus alarmParse.php to processEvents.php
+ *   
  */
 
 using System;
