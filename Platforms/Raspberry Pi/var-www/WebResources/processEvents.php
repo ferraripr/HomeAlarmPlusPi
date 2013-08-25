@@ -48,7 +48,7 @@ $EVENT_TIME = "";
 	  if($EVENT_DESCRIPTION == "Time set from Raspberry Pi")
 	  {
 	     $output = shell_exec("php ../NetduinoPlus/setNetduinoTimer.php"); 
-         $EVENT_TIME = date('m/d/Y h:i:s');
+         $EVENT_TIME = date('m/d/Y H:i:s');
 	  }
 
 	  $content = split("_",$EVENT_DESCRIPTION);
