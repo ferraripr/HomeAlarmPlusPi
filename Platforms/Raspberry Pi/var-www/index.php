@@ -11,7 +11,6 @@ $PushingBoxDeviceID = "Your PushingBox device ID";
 $APP_TOKEN = "Your Pushover App token";
 $USER_KEY  = "Your Pushover User Key";
 
-
 //DEBUG SETTINGS
 $PHP_DEBUG  = 0;
 $MOBILE     = 0;
@@ -36,7 +35,7 @@ if (isset($_GET['main-page']))
   {
      $PushingBoxDeviceID = $_GET["deviceID"];
   }
-  
+
   $MOBILE = isset($_GET['mobile'])? "1": "0";
 
   //send notification to PushingBox
@@ -47,11 +46,11 @@ if (isset($_GET['main-page']))
 
   //alarm logs path
   $filename = "data/alerts.json";
-    
-  $fp = fopen($filename, 'r'); 
+
+  $fp = fopen($filename, 'r');
   $array = explode("\n", fread($fp, filesize($filename)));
 
-if ($fp) 
+if ($fp)
 {
    $ALERT_COUNT = count($array) -1;
    if($FILE_DEBUG)
@@ -73,15 +72,15 @@ if ($fp)
 else
 {
   $ALARM_LOGS = "<tr><td></td><td><center>No Alarms/Sensors to report</center></td><td></td></tr>";
-}  
+}
 
   //system logs path
   $filename = "data/system-logs.json";
-    
-  $fp = fopen($filename, 'r'); 
+
+  $fp = fopen($filename, 'r');
   $array = explode("\n", fread($fp, filesize($filename)));
 
-if ($fp) 
+if ($fp)
 {
    $LOGS_COUNT = count($array) -1;
    if($FILE_DEBUG)
@@ -104,7 +103,7 @@ else
 {
   $SYSTEM_LOGS = "<tr><td></td><td><center>No System logs to report</center></td></tr>";
 }
- 
+
   print <<< EOT
 <!doctype html>
 <html lang="en">
@@ -114,24 +113,24 @@ else
 
 <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->
 <script src="WebResources/wunderground_query.js"></script>
-
   <script>
   $(function() {
     $( "#menu" ).menu();
   });
   </script>
-  
+
   <style>
-  .ui-menu { width: 180px; position:relative; left:2px;}
+  .ui-menu { width: 180px; position:relative; left:2px; }
   </style>
-  
+
 <head>
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="08/09/2013"/>
+<meta name="mod-date" content="11/03/2013"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
+<!--
 <?php if ($MOBILE ==1) : ?>
    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
    <meta name="MobileOptimized" content="width" />
@@ -140,14 +139,15 @@ else
    <meta name="apple-mobile-web-app-capable" content="yes" />
    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <?php endif; ?>
+-->
 
 <!--jQuery, linked from a CDN-->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"/></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"/></script>
 <!--jQueryUI Theme -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/redmond/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" />
 
-<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"/>	   
+<link rel="stylesheet" type="text/css" href="WebResources/header_style.css"/>
 <link rel="stylesheet" type="text/css" href="WebResources/table_style.css"/>
 <title>RASPBERRY PI Control Panel - Home</title>
 </head>
@@ -156,8 +156,8 @@ else
 		<!-- style="text-align:center;" -->
         <div id="header" class="ui-widget-header ui-corner-top">
         <h2>HomeAlarmPlus Pi</h2>
-		</div>		
-<div id="menu" style="height:445px;width:235px;float:left;">	
+	</div>
+<div id="menu" style="height:445px;width:235px;float:right;position:absolute;top:80px;display:block;z-index:1000;">
 <b><center>Menu</center></b>
 <div style="border-bottom:1px;"></div>
 <div style="border-bottom:1px;"></div>
@@ -167,12 +167,11 @@ else
   <div style="border-bottom:1px;"></div>
   <li>
     <a href="#">Raspberry Pi2</a>
-	<div style="border-bottom:1px;"></div>
     <ul>
       <li><a href="http://{$_SERVER['SERVER_NAME']}:{$RASPBERRYPI2_PORT}" target="_blank">Main Page</a></li>
       <div style="border-bottom:1px;"></div>
-	  <li class="ui-state-disabled"><a href="#">Option1</a></li>
-	  <div style="border-bottom:1px;"></div>
+      <li class="ui-state-disabled"><a href="#">Option1</a></li>
+      <div style="border-bottom:1px;"></div>
       <li class="ui-state-disabled"><a href="#">Option2</a></li>
     </ul>
   </li>
@@ -181,7 +180,7 @@ else
     <a href="#">Other Platforms</a>
       <ul>
         <li><a href="/mobile" target="_blank">Mobile</a></li>
-	<div style="border-bottom:1px;"></div>
+        <div style="border-bottom:1px;"></div>
         <li><a href="/Touch" target="_blank">Tablet</a></li>
       </ul>
   </li>
@@ -198,19 +197,19 @@ else
   </li>
   <div style="border-bottom:1px;"></div>
 <!-- menu -->
-<br>
+
 <center>
-        <table class="gridtable" border="1" width="20%">
+        <table class="desktop_weather_table" border="0" cellspacing="0" width="25%">
                 <tr>
-                   <td id="c_current_conditions"><center>Currently</center><br/></td>
-		   <td id="c_temperature"><center>Temperature</center></td>
-                </tr> 
+                   <td id="c_current_conditions"><center>Now</center><br/></td>
+		           <td id="c_temperature"><center>Temperature</center></td>
+                </tr>
         </table>
-</center>		
-				
+</center>
+
 </div>
-				
-        <div id="content" style="background-color:#EEEEEE;padding:10px 0 0 250px;" class="ui-widget-content ui-corner-bottom" >		
+
+        <div id="content" style="background-color:#EEEEEE;padding:0px 0 0 250px;" class="ui-widget-content ui-corner-bottom" >
         <p>System Time: <b>{$current_time}</b></p>
         <p id="c_location">Location: </p>
         <p id="c_current_forecast">Forecast: </p>
@@ -223,7 +222,7 @@ else
 -->
             <br>
 			<b>Alarm Logs:</b>
-			
+
             <table class="gridtable">
             <tr><th><center>Time</center></th><th><center>Zone/Sensor</center></th><th><center>Description</center></th></tr>
 			{$ALARM_LOGS}
@@ -231,14 +230,14 @@ else
 
             <br>
 			<b>System Logs:</b>
-			
+
             <table class="gridtable">
-            <tr><th><center>Time</center></th><th><center>Description</center></th></tr>
+                        <tr><th><center>Time</center></th><th><center>Description</center></th></tr>
 			{$SYSTEM_LOGS}
-			</table>			
+	    </table>
 
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 </div><!-- container -->
 

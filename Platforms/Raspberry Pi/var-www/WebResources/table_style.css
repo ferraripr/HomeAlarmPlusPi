@@ -23,3 +23,16 @@ table.gridtable td {
 	border-color: #666666;
 	background-color: #ffffff;
 }
+
+table.desktop_weather_table{
+    position:relative;
+	left:10px;
+
+    border:5px solid RoyalBlue;
+    -webkit-border-radius:20px;
+    -moz-border-radius:20px;
+    -ms-border-radius:20px;
+    -o-border-radius:20px;
+    border-radius:20px;
+}
+

@@ -12,53 +12,53 @@ $USER_KEY  = "Your Pushover User Key";
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="08/10/2013"/>
+        <meta name="mod-date" content="08/24/2013"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
         <meta name="apple-mobile-web-app-title" content="HomeAlarmPlus Pi Mobile" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />		
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <link rel="stylesheet" type="text/css" href="../WebResources/jquery_table_style_blue.css"></style>
-		
+
         <!--http://jsfiddle.net/frankdenouter/Lp9P2/-->
         <link rel="stylesheet" href="../WebResources/weather_table.css" />
-		
+
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
-		
-	<link rel="stylesheet"  href="http://jquerymobile.com/demos/1.3.0-beta.1/docs/demos/_assets/css/jqm-demos.css">
-		
+	    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+
+	    <link rel="stylesheet"  href="http://jquerymobile.com/demos/1.3.0-beta.1/docs/demos/_assets/css/jqm-demos.css">
+
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		
+
         <script>
             $(document).bind("mobileinit", function(){
 	        $.mobile.defaultPageTransition = 'flow';
                 $.mobile.defaultDialogTransition = 'slide';
                 $.mobile.loadingMessageTextVisible = true;
-                $.mobile.pageLoadErrorMessage = 'Page cannot be accessed this time!';				
+                $.mobile.pageLoadErrorMessage = 'Page cannot be accessed this time!';
             });
         </script>
-		
+
         <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-		
+
         <!-- Weather data from Wunderground, http://www.wunderground.com/weather/api/ -->
         <script src="../WebResources/wunderground_query.js"></script>
-		
+
         <!-- http://jsfiddle.net/jerone/gsNzT/ -->
         <script src="../WebResources/jquery_animate_collapse.js"></script>
-	
+
         <script>
-            $(document).on('pagebeforecreate', '[data-role="page"]', function(){     
+            $(document).on('pagebeforecreate', '[data-role="page"]', function(){
                 setTimeout(function(){
                      $.mobile.loading('show');
-    },1);    
+    },1);
 });
 
-            $(document).on('pageshow', '[data-role="page"]', function(){  
+            $(document).on('pageshow', '[data-role="page"]', function(){
                 setTimeout(function(){
                    $.mobile.loading('hide');
-                },1000);	
+                },1000);
 });
         </script>
 
@@ -83,11 +83,13 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
            left:8px;
         }
 	</style>
-		
+
     </head>
     <body>
               <?php
-	         exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi Mobile."   -F "title=Web Trigger"   https://api.pushover.net/1/messages.json');
+			  $EVENT_TIME = date('m/d/Y H:i:s');
+	          exec('curl -s   -F "token='.$APP_TOKEN.'"   -F "user='.$USER_KEY.'"   -F "message=Web Server Access from Pi Mobile."   -F "title=Web Trigger"   https://api.pushover.net/1/messages.json');
+			  $output = shell_exec("php ../WebResources/processEvents.php?alarm-description=Web Server Access from Pi Mobile&title=Web Trigger&Alarm=false&Ntime=".$EVENT_TIME);
                ?>
 
         <!-- Home -->
@@ -107,10 +109,10 @@ $( "#nav-panel").panel("open", {display: 'overlay', position: 'left'} );
 $DEBUG = 0;
 
 $filename = "../data/alerts.json";
-$fp = @fopen($filename, 'r'); 
+$fp = @fopen($filename, 'r');
 $array = explode("\n", fread($fp, filesize($filename)));
 
-if ($fp) 
+if ($fp)
 {
    $ALERT_COUNT = count($array) -1;
    if($DEBUG)
@@ -137,11 +139,11 @@ else
 }
 ?>
                 </table>
-                <p id="c_zone"></p>			
+                <p id="c_zone"></p>
             </div>
 
         </div><!-- /content -->
-	
+
 		<br /><br /><br /><br />
 
         <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
@@ -169,7 +171,7 @@ else
                                                 </li>
                                                 <li data-filtertext="Settings">
                                                     <a href="#" rel="external">Settings</a>
-                                                </li>						
+                                                </li>
                                                 <li data-filtertext="Cameras">
                                                     <a href="#" rel="external">Cameras</a>
                                                 </li>
@@ -178,13 +180,13 @@ else
 						</li>
 						<li data-filtertext="Diagnostics">
 						    <a href="diagnostics.php" rel="external" >Diagnostics</a>
-						</li>						
-						
+						</li>
+
 						<div data-role="collapsible-set" data-corners="false" data-theme="a">
 						<div data-role="collapsible" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right" data-collapsed="true">
 						<h3>About</h3>
                                                 <ul data-role="listview" data-theme="a" data-divider-theme="a">
-                                                    <li data-filtertext="About Home Alarm Plus">								
+                                                    <li data-filtertext="About Home Alarm Plus">
                                                         <a href="#about-netduino" rel="external">HomeAlarmPlus</a>
                                                     </li>
                                                     <li data-filtertext="About Home Alarm Plus Pi">
@@ -196,22 +198,22 @@ else
 						</div><!-- about listview -->
 				</div><!-- panel -->
 		</div><!-- main-page -->
-				
+
         <div data-role="page" id="weather"  data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" class="jqm-header" data-position="fixed">
                 <h3>
                     Weather
                 </h3>
-		                <?php 
+		                <?php
                            $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
-                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>";
                         ?>
 				<div data-role="content"><p id="c_location">Location: </p>
                 <p id="c_alerts"><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-                   <strong id="s_location">Alerts for </strong> 
+                   <strong id="s_location">Alerts for </strong>
 				</p>
 				</div>
-            </div>			
+            </div>
             <div data-role="collapsible-set" data-content-theme="e">
                <div data-theme="c" data-role="collapsible" data-collapsed="false">
                   <h3>
@@ -222,9 +224,9 @@ else
                         <td id="c_current_conditions"></td>
 				        <td id="c_temperature"><center>Temperature</center></td>
 						<td id="c_current_precipitation"><center>Chance of<br>precipitation</center></td>
-				    </tr> 
+				    </tr>
 	              </table>
-               </div>			
+               </div>
                <div data-theme="c" data-role="collapsible">
                   <h3>
                      3 day Forecast
@@ -232,7 +234,7 @@ else
 			      <table class="gridtable" border="0" width="100%">
 			         <tr>
 				        <td><center>Forecast</center></td>
-			         </tr>				  
+			         </tr>
 			         <tr>
 				        <td id="c_forecast"></td>
 			         </tr>
@@ -245,7 +247,7 @@ else
 			      <table class="gridtable" border="0" width="100%">
 			         <tr>
 				        <td><center>Extended Forecast</center></td>
-			         </tr>				  				  
+			         </tr>
 			         <tr>
 				        <td id="c_extforecast"></td>
 			         </tr>
@@ -255,20 +257,20 @@ else
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		       <p class="jqm-version"></p>
 		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
-	       </div>		   
+	       </div>
         </div><!-- /weather page -->
-			
+
         <div data-role="page" id="about-hapluspi" data-theme="b" data-content-theme="b" class="jqm-demos">
             <div data-theme="b" data-role="header" data-position="fixed" >
                 <h3>
                     About - HomeAlarmPlus Pi
                 </h3>
-                <?php 
+                <?php
                            $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
-                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
-                ?>	
-            </div>          
-			<div data-role='content'>						
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>";
+                ?>
+            </div>
+			<div data-role='content'>
 				<div data-role="content" data-content-theme="e">
 				    <div class="content-primary">
 				        <h2>HomeAlarmPlus Pi</h2>
@@ -280,7 +282,7 @@ else
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		   <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
-           </div>			
+           </div>
         </div><!-- /about raspberry pi page -->
 
         <div data-role="page" id="about-netduino" data-theme="b" data-content-theme="b" >
@@ -288,33 +290,33 @@ else
                 <h3>
                     About - HomeAlarmPlus
                 </h3>
-		        <?php 
+		        <?php
                            $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/index.php";
-                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>"; 
+                           echo "<a href= $link data-rel='back'  class='ui-btn-left ui-btn-back' data-icon='arrow-l' >Back</a>";
                 ?>
-            </div>          
-			<div data-role='content'>						
+            </div>
+			<div data-role='content'>
 				    <div class="content-primary">
 				        <h2>HomeAlarmPlus</h2>
-				        <p>Programmed by Gilberto Garc&#237;a</p>						
+				        <p>Programmed by Gilberto Garc&#237;a</p>
                         <p>Weather data from <a href="http://www.wunderground.com/" rel='external'>Wunderground.com.</a></p>
 				        <p>For latest source code visit: <a href="https://github.com/ferraripr/HomeAlarmPlusPi" rel='external'>Repository</a></p>
                         <p><b>Hardware:</b> <a href='http://netduino.com/netduinoplus/specs.htm' target='_blank'>Netduino Plus</a></p>
 						<ul>
                           <li class="toplinks">
-                          <?php 
+                          <?php
                              $link = "http://".$_SERVER['SERVER_NAME'].":" . $RASPBERRYPI1_PORT . "/mobile/references-mobile.html";
-                             echo "<a href= $link rel='external'  title='Credits and contributors'>References</a>"; 
+                             echo "<a href= $link rel='external'  title='Credits and contributors'>References</a>";
                           ?>
 						  </li>
                           <br>
                         </ul>
-			<?php						   
+			<?php
                            try {
                                 $link2 = "http://".$_SERVER['SERVER_NAME'].":" . $NETDUINO_PLUS_PORT . "/assy";
                                 $netduino_file = file_get_contents($link2);
                                 echo $netduino_file;
-                           } 
+                           }
                            catch (Exception $e) {
                                 echo 'Page not available this time!';
                            }
@@ -323,9 +325,9 @@ else
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
-	       </div>			
-        </div><!-- /about netduino plus page -->		
-		
+	       </div>
+        </div><!-- /about netduino plus page -->
+
 		<br>
     </body>
 </html>
