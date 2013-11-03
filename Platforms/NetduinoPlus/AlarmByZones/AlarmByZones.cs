@@ -209,6 +209,9 @@
  *   
  *   08-24-2013              27.8.2.0            G. García          Renamed on RPi and replaced in Netduino Plus alarmParse.php to processEvents.php
  *   
+ *   10-27-2013              27.9.0.0            G. García          Modified method of showing Zone Activity on LCD.
+ *                                                                  Fixed flickering on LCD when showing alarm status.
+ *   
  */
 
 using System;
@@ -485,7 +488,7 @@ namespace AlarmByZones
         /// </summary>
         static void MonitorZones()
         {
-            int delayTime = 50;
+            int delayTime = 120;
             for (int i = 0; i < Zones.Length; i++)
             {
 #if MF_FRAMEWORK_VERSION_V4_1
@@ -578,18 +581,20 @@ namespace AlarmByZones
                         //soundAlarmPin.Write(true);
                         soundAlarmPin.Write(rfTogglePin.Read());
                         sendToXBee("1");
+                        Thread.Sleep(210);
                     }
                     else
                     {
                         soundAlarmPin.Write(false);
                         sendToXBee("0");
+                        lcd.SetCursorPosition(column: 0, row: 0);
                         lcd.Write("  All Zones OK");
+                        Thread.Sleep(delayTime);
                     }                    
-                    //lcd.Write("   Zone " + (i + 1).ToString() + " OK");
+
                 }
-                Thread.Sleep(210);
-                lcd.Clear();
             }
+
         }
 
         ///// <summary>

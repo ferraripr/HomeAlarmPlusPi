@@ -476,7 +476,7 @@ namespace AlarmByZones
                     break;
 				case "/re":
 				case "/rst":
-					Notification.PushingBox.Connect("vB0DE681C4EAE2A8");
+					Notification.PushingBox.Connect("vPUSHINGBOX_RESET");
                     time = DateTime.Now.ToString();
                     ttime = Extension.Replace(time, " ", "%20");
                     Notification.Pushover.Connect(ttime, "Netduino%20Plus%20Web%20Trigger", "Netduino%20Plus%20executing%20Reset%20", false);
