@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Gilberto García")]
 [assembly: AssemblyProduct("AlarmByZones")]
-[assembly: AssemblyCopyright("Copyright © Gilberto García 2013")]
+[assembly: AssemblyCopyright("Copyright © Gilberto García 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("27.8.2.0")]
-[assembly: AssemblyFileVersion("27.8.2.0")]
+[assembly: AssemblyVersion("28.0.0.0")]
+[assembly: AssemblyFileVersion("28.0.0.0")]
