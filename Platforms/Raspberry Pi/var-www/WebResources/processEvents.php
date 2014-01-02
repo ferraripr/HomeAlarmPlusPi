@@ -47,28 +47,33 @@ $EVENT_TIME = "";
 	{
 	  if($EVENT_DESCRIPTION == "Time set from Raspberry Pi")
 	  {
-	     $output = shell_exec("php ../NetduinoPlus/setNetduinoTimer.php"); 
+	     $output = shell_exec("php ../NetduinoPlus/setNetduinoTimer.php");
          $EVENT_TIME = date('m/d/Y H:i:s');
+	  }
+	  if($EVENT_DESCRIPTION == "Weather sync")
+	  {
+	     $output = shell_exec("php ../NetduinoPlus/weather_query.php");
+	     $EVENT_TIME = date('m/d/Y H:i:s');
 	  }
 
 	  $content = split("_",$EVENT_DESCRIPTION);
 	  //$jrecord_arr = array('time' => $EVENT_TIME,'description' => trim($content[1]));
 	  $jrecord_arr = array('time' => $EVENT_TIME,'description' => trim($content[0]));
-	  
+
 	  $fp = fopen('../data/system-logs.json', 'a+');
       fwrite($fp, json_encode($jrecord_arr)."\n");
-      fclose($fp);	  	   
+      fclose($fp);
 	}
   }
-  
-  
+
+
     print <<< EOT
 <!doctype html>
 <html lang="en">
 <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="08/24/2013"/>
+        <meta name="mod-date" content="01/02/2014"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>

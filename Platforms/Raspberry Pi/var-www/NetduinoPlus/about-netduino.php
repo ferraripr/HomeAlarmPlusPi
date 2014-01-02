@@ -8,7 +8,7 @@ $NETDUINO_PLUS_PORT = 8085;
 	<head>
 	    <title>Control Panel - About</title>
        <meta name="author"   content="Gilberto García"/>
-       <meta name="mod-date" content="07/17/2013"/>
+       <meta name="mod-date" content="01/02/2014"/>
        <!--jQuery, linked from a CDN-->
        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
@@ -47,5 +47,5 @@ $NETDUINO_PLUS_PORT = 8085;
 		echo "<a href= $link>Back to main page...</a>"; 
 		?>
         <br>
-        <div style="border:1px solid #CCCCCC;">        <p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>        </div>	</div></div></body>
+        <div style="border:1px solid #CCCCCC;">        <p><span class="note">Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>        </div>	</div></div></body>
 </html>

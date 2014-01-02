@@ -170,6 +170,10 @@ namespace AlarmByZones
                             Alarm.ConfigDefault.Data.HTTP_HOST = sr.ReadLine();
                             Console.DEBUG_ACTIVITY("HTTP HOST: " + Alarm.ConfigDefault.Data.HTTP_HOST);
                             break;
+                        case "[WUNDERGROUND_SYNC_FREQUENCY]":
+                            Alarm.ConfigDefault.Data.WUNDERGROUND_SYNC_FREQUENCY = Int16.Parse(sr.ReadLine());
+                            Console.DEBUG_ACTIVITY("WUNDERGROUND sync frequency: " + Alarm.ConfigDefault.Data.WUNDERGROUND_SYNC_FREQUENCY);
+                            break;
                         default:
                             break;
                     }

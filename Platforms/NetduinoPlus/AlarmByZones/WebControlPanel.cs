@@ -18,8 +18,8 @@ namespace AlarmByZones
 
 			DateTime endTime = DateTime.Now;
 			TimeSpan span = endTime.Subtract(AlarmByZones.dLastResetCycle);
-            string strUptime = span.Duration().Days == 0 ? span.Days + " days " + span.Hours + " hours " + span.Minutes + " minutes" : 
-                span.Days + " day, " + span.Hours + ":" + span.Minutes + ":" + span.Seconds + " (hh:mm:ss)<br>";
+            string strUptime = span.Duration().Days == 1 ? span.Days + " day " + span.Hours + " hours " + span.Minutes + " minutes" : 
+                span.Days + " days " + span.Hours + " hours " + span.Minutes + " minutes " + "<br>";
 
             if (Alarm.ConfigDefault.Data.USE_PACHUBE)
             {
@@ -80,17 +80,32 @@ namespace AlarmByZones
 				}
 			}
 			catch { }
+
+            try
+            {
+                if (rawURL_string == "/weat")
+                {
+                    string[] url = context.Request.RawUrl.Split('_');
+                    Alarm.Common.Weather_Info.current_temperature = url[1] + Alarm.Common.Weather_Info.WEATHER_UNITS;
+                    Alarm.Common.Weather_Info.current_conditions = url[2];
+                    Alarm.Common.Weather_Info.today_high = url[3] + Alarm.Common.Weather_Info.WEATHER_UNITS; ;
+                    Alarm.Common.Weather_Info.today_low = url[4] + Alarm.Common.Weather_Info.WEATHER_UNITS; ;
+                    context.Request.RawUrl = "/weat";
+                }
+            }
+            catch { }
 		   
 			switch (context.Request.RawUrl)
 			{
 				case "/date":
+                case "/weat":
 					break;
 				case "/su":
 				case "/":
 				case "/mobile":
 					//AlarmByZones.email.SendEmail("Web Server access", "Home web server access.\nAssemblyInfo: " + System.Reflection.Assembly.GetExecutingAssembly().FullName);
                     //PushingBox Web server access notification
-                    PushingBox.Notification.Connect("vPUSHINGBOX");
+                    Notification.PushingBox.Notification.Connect("vPUSHINGBOX");
                     string time = DateTime.Now.ToString();
                     string ttime = Extension.Replace(time, " ", "%20");
                     Notification.Pushover.Connect(ttime, "Netduino%20Plus%20Web%20Trigger", "Web%20Server%20Access%20from%20Netduino%20Plus", false);
@@ -100,7 +115,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - Home</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='07/17/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine("<meta charset='utf-8' />");
 					context.Response.WriteLine("<meta name='viewport' content='initial-scale=1.0, user-scalable=no' />");
@@ -127,7 +142,7 @@ namespace AlarmByZones
 						context.Response.WriteLine("</div>");
 						context.Response.WriteLine("<br/><br/><br/>");
                         context.Response.WriteLine("<div data-role='footer' class='footer-docs' data-theme='c' data-position='fixed'>");
-						context.Response.WriteLine("<p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>");
+						context.Response.WriteLine("<p>Copyright 2014 Gilberto Garc&#237;a</p>");
 						context.Response.WriteLine("</div>	");
 					}
 					else
@@ -147,7 +162,7 @@ namespace AlarmByZones
 						context.Response.WriteLine("</table>");
 						context.Response.WriteLine("<br><br>");
 						context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-						context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p></div></div>");
+						context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p></div></div>");
 					}
 					context.Response.WriteLine("</div></body></html>");
 					//clear variables
@@ -168,7 +183,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - SD Card History Log</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine("<meta charset='utf-8' />");
 					context.Response.WriteLine("<meta name='viewport' content='initial-scale=1.0, user-scalable=no' />");
@@ -210,7 +225,7 @@ namespace AlarmByZones
 					context.Response.WriteLine("<br>");
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					rawURL_string = null;
 					break;
@@ -219,7 +234,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - Open SD Card File</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("<link rel='stylesheet' type='text/css' href='" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css'></style>");
@@ -249,7 +264,7 @@ namespace AlarmByZones
 					context.Response.WriteLine("<br><br>");
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					//clear variables
 					alOpen.Clear();
@@ -263,7 +278,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - Pachube Graphics</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("<link rel='stylesheet' type='text/css' href='"+ Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css'></style>");
@@ -282,7 +297,7 @@ namespace AlarmByZones
 					}
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					//clear variables
 					alPachube.Clear();
@@ -300,7 +315,7 @@ namespace AlarmByZones
 						context.Response.ContentType = "text/html";
 						context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card confirm</title>");
 						context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-						context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+						context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 						context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 						context.Response.WriteLine(jquery_ui_script);
                         context.Response.WriteLine("<link rel='stylesheet' type='text/css' href='" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css'></style>");
@@ -329,7 +344,7 @@ namespace AlarmByZones
 					}
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					menu_Header = null;
 					rawURL_string = null;
@@ -339,7 +354,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - Delete SD Card File</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine(jquery_ui_script);
                     context.Response.WriteLine("<link rel='stylesheet' type='text/css' href='" + Alarm.ConfigDefault.Data.HTTP_HOST + "WebResources/header_style.css'></style>");
@@ -376,7 +391,7 @@ namespace AlarmByZones
 					}
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					menu_Header = null;
 					rawURL_string = null;
@@ -394,7 +409,7 @@ namespace AlarmByZones
 					context.Response.ContentType = "text/html";
 					context.Response.WriteLine("<html><head><title>Control Panel - Diagnostics</title>");
 					context.Response.WriteLine("<meta name='author'   content='Gilberto García'/>");
-					context.Response.WriteLine("<meta name='mod-date' content='05/05/2013'/>");
+					context.Response.WriteLine("<meta name='mod-date' content='01/02/2014'/>");
 					context.Response.WriteLine("<meta name='application-name' content='HomeAlarm Plus'/>");
 					context.Response.WriteLine("<meta charset='utf-8' />");
 					context.Response.WriteLine("<meta name='viewport' content='initial-scale=1.0, user-scalable=no' />");
@@ -423,7 +438,7 @@ namespace AlarmByZones
 					context.Response.WriteLine("<br><br>");
 					context.Response.WriteLine("<a href='/'>Back to main page...</a>");
 					context.Response.WriteLine("<div style='border:1px solid #CCCCCC;'>");
-					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>");
+					context.Response.WriteLine("<p><span class='note'>Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>");
 					context.Response.WriteLine("</div></div></div></body></html>");
 					rawURL_string = null;
 					break;

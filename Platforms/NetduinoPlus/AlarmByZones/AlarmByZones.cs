@@ -1,6 +1,6 @@
 /* AlarmByZones.cs
  * 
- * Copyright (c) 2013 by Gilberto García, twitter @ferraripr
+ * Copyright (c) 2012, 2013, 2014 by Gilberto García, twitter @ferraripr
  * 
  * A simple alarm monitoring system using a typical alarm panel.  This implementation
  * could be used in conjunction with the P C 5 0 1 0 - Digital Security Controls (DSC) 
@@ -211,6 +211,11 @@
  *   
  *   10-27-2013              27.9.0.0            G. García          Modified method of showing Zone Activity on LCD.
  *                                                                  Fixed flickering on LCD when showing alarm status.
+ *                                                                  
+ *   01-02-2014              28.0.0.0            G. García          Added current temperature, high/low, weather conditions displayed in LCD.
+ *                                                                  Added WUNDERGROUND_SYNC_FREQUENCY variable to Config.ini
+ *                                                                  strUptime correction.
+ *                                                                  
  *   
  */
 
@@ -247,10 +252,14 @@ namespace AlarmByZones
         /// Alarm zones (Analog Input)
         /// </summary>
         static Microsoft.SPOT.Hardware.AnalogInput[] Zones = {
-                                                                 new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A0),
-                                                                 new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A1),
-                                                                 new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A2),
-                                                                 new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A3)
+                                                                 new Microsoft.SPOT.Hardware.AnalogInput(
+                                                                     SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A0),
+                                                                 new Microsoft.SPOT.Hardware.AnalogInput(
+                                                                     SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A1),
+                                                                 new Microsoft.SPOT.Hardware.AnalogInput(
+                                                                     SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A2),
+                                                                 new Microsoft.SPOT.Hardware.AnalogInput(
+                                                                     SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A3)
                                                              };
 
         /// <summary>
@@ -267,7 +276,7 @@ namespace AlarmByZones
         /// Motion detector sensors (Analog Input)
         /// </summary>
         static Microsoft.SPOT.Hardware.AnalogInput[] Sensors = {
-                                                                   new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A4)
+                                                                   new Microsoft.SPOT.Hardware.AnalogInput(AnalogChannels.ANALOG_PIN_A4)
                                                                };
 
         /// <summary>
@@ -280,7 +289,8 @@ namespace AlarmByZones
         /// <summary>
         /// Temperature sensor
         /// </summary>
-        public static Microsoft.SPOT.Hardware.AnalogInput tempSensor = new Microsoft.SPOT.Hardware.AnalogInput(SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A5);
+        public static Microsoft.SPOT.Hardware.AnalogInput tempSensor = new Microsoft.SPOT.Hardware.AnalogInput(
+            SecretLabs.NETMF.Hardware.NetduinoPlus.AnalogChannels.ANALOG_PIN_A5);
 
         /// <summary>
         /// Gets the total elapsed time measured by the current instance of each alarm zone.
@@ -320,7 +330,7 @@ namespace AlarmByZones
         /// <summary>
         /// LCD Interface
         /// </summary>
-        public static Lcd lcd = new MicroLiquidCrystal.Lcd(lcdProvider);
+        private static Lcd lcd = new MicroLiquidCrystal.Lcd(lcdProvider);
 
         /// <summary>
         /// Netduino IP Address
@@ -368,6 +378,12 @@ namespace AlarmByZones
         /// Delimiter for PHP $_GET
         /// </summary>
         const string POST_DELIMETER = "_";
+
+        /// <summary>
+        /// Sync to HTTP Events watch
+        /// </summary>
+        static System.Diagnostics.Stopwatch syncHttpEvents;
+
         #endregion
 
         #region Delegates
@@ -411,7 +427,7 @@ namespace AlarmByZones
             for (int i = 0; i < InitMessage.Length; i++)
             {
                 lcd.ScrollDisplayLeft();
-                Thread.Sleep(90);
+                Thread.Sleep(85);
             }
 
             lcd.Clear();
@@ -423,6 +439,7 @@ namespace AlarmByZones
             MonitorMotionSensorDelegate monitorMotion = new MonitorMotionSensorDelegate(MonitorSensors);
 
             SdCardEventLogger.parseConfigFileContents(Alarm.User_Definitions.Constants.ALARM_CONFIG_FILE_PATH);
+            syncHttpEvents = Stopwatch.StartNew();
 
             InitArrays();
             IPAddress = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0].IPAddress;
@@ -453,19 +470,31 @@ namespace AlarmByZones
             
             LastResetCycle = DateTime.Now.ToString("ddd, d MMM yyyy hh:mm:ss tt\r\n");
             dLastResetCycle = DateTime.Now;
+            Thread.Sleep(2000);
 
+            lcd.SetCursorPosition(column: 0, row: 0);
+            lcd.Write("Syncing data           ");
             lcd.SetCursorPosition(column: 0, row: 1);
-            string status = Notification.PushingBox.bStatus ? "RPi Time-srvr OK    " : "Network problems";
-            Debug.Print(status);
-            lcd.Write(status);
+            lcd.Write("Wunderground       ");
+            parseWeatherData(ttime);
+            Thread.Sleep(2000);
+
+            lcd.Clear();
+            lcd.SetCursorPosition(column: 0, row: 0);
+            lcd.Write("HomeAlarmPlus Pi");
+            lcd.SetCursorPosition(column: 0, row: 1);
+            lcd.Write("Temp: " + Alarm.Common.Weather_Info.current_temperature + "      ");
             Thread.Sleep(2000);
 
             lcd.SetCursorPosition(column: 0, row: 1);
             lcd.Write("SYSTEM READY           ");
             Debug.Print("ARMED!");
-            Thread.Sleep(460);
+            Thread.Sleep(560);
             ATTINYx5.Write(true);
 
+            lcd.Clear();
+
+            int count = 0, sub_count = 0;
             while (true)
             {
                 Console.DEBUG_ACTIVITY("Main Method - Memory available: " + Debug.GC(true));
@@ -473,11 +502,38 @@ namespace AlarmByZones
                 //monitorMotion();
 
                 lcd.Clear();
-                lcd.SetCursorPosition(column: 0, row: 0);
-                lcd.Write("  Date    Time");
-                lcd.SetCursorPosition(column: 0, row: 1);
-                lcd.Write(DateTime.Now.ToString("MMM dd/yy h:mmtt ").ToUpper());
+                if (count % 2 == 0)
+                {
+                    lcd.SetCursorPosition(column: 0, row: 0);
+                    lcd.Write("  Date    Time");
+                    lcd.SetCursorPosition(column: 0, row: 1);
+                    lcd.Write(DateTime.Now.ToString("MMM dd/yy h:mmtt ").ToUpper());
+                }
+                else
+                {
+                    lcd.SetCursorPosition(column: 0, row: 0);
+                    lcd.Write("  Current Temp");
+
+                    lcd.SetCursorPosition(column: 0, row: 1);
+                    
+                    if (sub_count % 2 == 0)
+                        lcd.Write(Alarm.Common.Weather_Info.current_temperature + " " + Alarm.Common.Weather_Info.current_conditions);
+                    else
+                        lcd.Write("Hi: " + Alarm.Common.Weather_Info.today_high + " Lo: " + Alarm.Common.Weather_Info.today_low);
+
+                    sub_count++;
+                }
+
                 Thread.Sleep(Alarm.Common.Alarm_Constants.ALARM_DELAY_TIME);
+
+                double eHours = syncHttpEvents.ElapsedHours;
+                if (eHours >= Alarm.ConfigDefault.Data.WUNDERGROUND_SYNC_FREQUENCY)
+                {
+                    parseWeatherData(Extension.Replace(DateTime.Now.ToString(), " ", "%20"));
+                    syncHttpEvents = Stopwatch.StartNew();
+                }
+
+                count++;
             }
         }
 
@@ -488,7 +544,7 @@ namespace AlarmByZones
         /// </summary>
         static void MonitorZones()
         {
-            int delayTime = 120;
+            int delayTime = 210;
             for (int i = 0; i < Zones.Length; i++)
             {
 #if MF_FRAMEWORK_VERSION_V4_1
@@ -581,7 +637,6 @@ namespace AlarmByZones
                         //soundAlarmPin.Write(true);
                         soundAlarmPin.Write(rfTogglePin.Read());
                         sendToXBee("1");
-                        Thread.Sleep(210);
                     }
                     else
                     {
@@ -589,9 +644,8 @@ namespace AlarmByZones
                         sendToXBee("0");
                         lcd.SetCursorPosition(column: 0, row: 0);
                         lcd.Write("  All Zones OK");
-                        Thread.Sleep(delayTime);
-                    }                    
-
+                    }
+                    Thread.Sleep(delayTime);
                 }
             }
 
@@ -613,7 +667,7 @@ namespace AlarmByZones
                 double vInput = Zones[i].Read();
                 float volts = ((float)vInput / 1024.0f) * 3.3f * 1000;
 #endif
-                string strSensorDescription = "N/A"; //If sensor description is not found on SD Card N/A is default description.
+                string strSensorDescription = strSensorDescription; //If sensor description is not found on SD Card N/A is default description.
 
                 Console.DEBUG_ACTIVITY("Sensor " + (i + 1).ToString() + ": Volts: " + volts);
 
@@ -709,6 +763,16 @@ namespace AlarmByZones
                 serialPort.Close();
             }
 
+        }
+
+        /// <summary>
+        /// Parse weather data from Weather Underground
+        /// </summary>
+        /// <param name="ttime">time</param>
+        private static void parseWeatherData(string ttime)
+        {
+            Debug.Print("Syncing weather data from wunderground.com");
+            Notification.Pushover.Connect(ttime, Extension.Replace("Netduino Plus weather sync", " ", "%20"), Extension.Replace("Weather sync", " ", "%20"), false);
         }
         #endregion
 

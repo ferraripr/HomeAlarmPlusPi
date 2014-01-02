@@ -12,7 +12,7 @@ $USER_KEY  = "Your Pushover User Key";
     <head>
         <meta charset="utf-8" />
         <meta name="author"   content="Gilberto Garc&#237;a"/>
-        <meta name="mod-date" content="08/24/2013"/>
+        <meta name="mod-date" content="01/02/2014"/>
         <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
         <meta name="MobileOptimized" content="width" />
         <meta name="HandheldFriendly" content="true" />
@@ -147,7 +147,7 @@ else
 		<br /><br /><br /><br />
 
         <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
-		    <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
+		    <p>Copyright 2014 Gilberto Garc&#237;a</p>
 	    </div>
 			<style>
 				.nav-search .ui-btn-up-a {
@@ -256,7 +256,7 @@ else
            </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
 		       <p class="jqm-version"></p>
-		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
+		       <p>Copyright 2014 Gilberto Garc&#237;a</p>
 	       </div>
         </div><!-- /weather page -->
 
@@ -281,7 +281,7 @@ else
 				</div>
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
-		   <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
+		   <p>Copyright 2014 Gilberto Garc&#237;a</p>
            </div>
         </div><!-- /about raspberry pi page -->
 
@@ -324,7 +324,7 @@ else
 			   </div>
             </div>
 		   <div data-role="footer" class="footer-docs" data-theme="c" data-position="fixed">
-		       <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>
+		       <p>Copyright 2014 Gilberto Garc&#237;a</p>
 	       </div>
         </div><!-- /about netduino plus page -->
 

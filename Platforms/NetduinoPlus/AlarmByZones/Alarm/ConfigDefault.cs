@@ -1,6 +1,6 @@
 /* ConfigDefault.cs
  * 
- * Copyright (c) 2012 by Gilberto García, twitter @ferraripr
+ * Copyright (c) 2014 by Gilberto García, twitter @ferraripr
  * 
  * A simple alarm monitoring system using a typical alarm panel.  This implementation
  * could be used in conjunction with the P C 5 0 1 0 - Digital Security Controls (DSC) 
@@ -66,6 +66,11 @@ namespace AlarmByZones.Alarm
             /// Web server address
             /// </summary>
             public static string HTTP_HOST = "127.0.0.1";
+
+            /// <summary>
+            /// Sync weather data every X amount of hours
+            /// </summary>
+            public static int WUNDERGROUND_SYNC_FREQUENCY = 1;
         }
     }
 }

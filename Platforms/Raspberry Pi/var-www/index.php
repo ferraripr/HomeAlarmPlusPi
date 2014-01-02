@@ -127,7 +127,7 @@ else
 <meta http-equiv="Content-Style-Type" content="text/css">
 <meta charset="UTF-8">
 <meta name="author"   content="Gilberto Garc&#237;a"/>
-<meta name="mod-date" content="11/03/2013"/>
+<meta name="mod-date" content="01/02/2014"/>
 
 <!-- http://www.formsite.com/documentation/mobile-optimization.html -->
 <!--
@@ -242,7 +242,7 @@ else
 </div><!-- container -->
 
 <div id="footer" style="border:1px solid #CCCCCC;">
-<p><span class="note">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>
+<p><span class="note">Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>
 </div><!-- footer    -->
 
 </div><!-- page      -->

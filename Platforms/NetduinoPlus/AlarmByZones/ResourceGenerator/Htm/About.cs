@@ -3,7 +3,7 @@
 //  This code was written by Gilberto García. It is released under the terms of 
 //  the Creative Commons "Attribution 3.0 Unported" license.
 //  http://creativecommons.org/licenses/by/3.0/
-//  Copyright (c) 2012, 2013 by Gilberto García, twitter @ferraripr
+//  Copyright (c) 2014 by Gilberto García, twitter @ferraripr
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ namespace ResourceGenerator.Htm
 				"	<head>\n" +
 				"	    <title>Control Panel - About</title>\n" +
 				"       <meta name=\"author\"   content=\"Gilberto García\"/>\n" +
-				"       <meta name=\"mod-date\" content=\"05/05/2013\"/>\n" +
+				"       <meta name=\"mod-date\" content=\"01/02/2014\"/>\n" +
                 "       <!--jQuery, linked from a CDN-->\n"+
                 "       <script src=\"http://code.jquery.com/jquery-1.9.1.js\"></script>\n" +
                 "       <script src=\"http://code.jquery.com/ui/1.10.2/jquery-ui.js\"></script>\n" +
@@ -94,7 +94,7 @@ namespace ResourceGenerator.Htm
                 "        <a href=\"http://yourNetduinoIP/\">Back to main page...</a>\n" +
 				"        <br>\n" +
 				"        <div style=\"border:1px solid #CCCCCC;\">" +
-				"        <p><span class=\"note\">Copyright &#169; 2012, 2013 Gilberto Garc&#237;a</span></p>" +
+				"        <p><span class=\"note\">Copyright &#169; 2014 Gilberto Garc&#237;a</span></p>" +
 				"        </div>" +
                 "	</div></div></body>\n" +
 				"</html>\n";
@@ -138,7 +138,7 @@ namespace ResourceGenerator.Htm
                 "       <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n" +
                 "       <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n" +
                 "       <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black\" />\n" +
-                "       <meta name=\"mod-date\" content=\"03/24/2013\"/>\n" +
+                "       <meta name=\"mod-date\" content=\"01/02/2014\"/>\n" +
                 "       <!--http://jsfiddle.net/frankdenouter/Lp9P2/-->\n" +
                 "       <link rel=\"stylesheet\" type=\"text/css\" href=\"http://yourRPiServer/WebResources/jquery_table_style.css\"></style>\n" +
                 "       <link rel=\"stylesheet\" href=\"http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css\" />\n" +
@@ -168,7 +168,7 @@ namespace ResourceGenerator.Htm
 				"        </div>\n" +
 				"        <div data-role='footer' class='footer-docs' data-theme='c' data-position='fixed'>\n" +
 				"            <p class='jqm-version'></p>\n" +
-				"            <p>Copyright 2012, 2013 Gilberto Garc&#237;a</p>\n" +
+				"            <p>Copyright 2014 Gilberto Garc&#237;a</p>\n" +
 				"        </div>\n" +
 				"        </div>" +
 				"	</body>\n" +
@@ -207,7 +207,7 @@ namespace ResourceGenerator.Htm
                 "<!DOCTYPE HTML>\n" +
                 "<html>\n" +
                 "	<head>\n" +
-                "       <meta name=\"mod-date\" content=\"07/28/2013\"/>\n" +
+                "       <meta name=\"mod-date\" content=\"01/02/2014\"/>\n" +
                 "	</head>" +
                 "	<body>" +
                 "<table>" +

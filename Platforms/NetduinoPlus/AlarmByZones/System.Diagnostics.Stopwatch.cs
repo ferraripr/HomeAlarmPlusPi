@@ -94,5 +94,24 @@ namespace System.Diagnostics
                     throw new InvalidOperationException();
             }
         }
+
+        public double ElapsedHours
+        {
+            get
+            {
+                if (m_startTicks != 0 && m_isRunning)
+                {
+                    TimeSpan duration = new TimeSpan((Microsoft.SPOT.Hardware.Utility.GetMachineTime().Ticks - m_startTicks));
+                    return duration.Hours;
+                }
+                else if (m_startTicks != 0 && !m_isRunning)
+                {
+                    TimeSpan duration = new TimeSpan((m_stopTicks - m_startTicks));
+                    return duration.Hours;
+                }
+                else
+                    throw new InvalidOperationException();
+            }
+        }
     }
 }

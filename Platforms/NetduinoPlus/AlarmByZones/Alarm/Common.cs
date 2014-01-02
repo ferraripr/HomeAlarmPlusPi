@@ -1,6 +1,6 @@
 /* Common.cs
  * 
- * Copyright (c) 2012 by Gilberto García, twitter @ferraripr
+ * Copyright (c) 2014 by Gilberto García, twitter @ferraripr
  * 
  * A simple alarm monitoring system using a typical alarm panel.  This implementation
  * could be used in conjunction with the P C 5 0 1 0 - Digital Security Controls (DSC) 
@@ -72,6 +72,35 @@ namespace AlarmByZones.Alarm
             /// Motion sensor zone Description table
             /// </summary>
             public static Hashtable sensorDescription = new Hashtable();
+        }
+
+        public static class Weather_Info
+        {
+            /// <summary>
+            /// Current weather temperature.
+            /// </summary>
+            /// <remarks>Data parsed from wunderground.com and output to lcd</remarks>
+            public static string current_temperature = "N/A";
+
+            /// <summary>
+            /// Current weather conditions.
+            /// </summary>
+            public static string current_conditions = "N/A";
+
+            /// <summary>
+            /// Today's high
+            /// </summary>
+            public static string today_high = "N/A";
+
+            /// <summary>
+            /// Today's low
+            /// </summary>
+            public static string today_low = "N/A";
+
+            /// <summary>
+            /// Weather unit
+            /// </summary>
+            public static string WEATHER_UNITS = "F";
         }
 
     }
